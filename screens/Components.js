@@ -14,7 +14,7 @@ import Articles from '../screens/Articles';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 
 // Now UI themed components
-import { Images, nowTheme, articles, tabs } from '../constants';
+import { Images, nowTheme, tabs } from '../constants';
 import { Button, Select, Icon, Input, Header, Switch } from '../components';
 
 import Img from '../components/Img';
@@ -478,10 +478,8 @@ class Components extends React.Component {
     );
   };
 
-
   renderCards = () => {
     scrollX = new Animated.Value(0);
-    cards = [articles[5], articles[6]]
     return (
       <Block flex style={styles.group}>
 
@@ -523,8 +521,8 @@ class Components extends React.Component {
 
     );
   };
+
   renderAlbums = () => {
-    const { navigation } = this.props;
 
     return (
       <Block flex style={[styles.group, { paddingBottom: theme.SIZES.BASE * 5 }]}>
@@ -538,7 +536,7 @@ class Components extends React.Component {
             </Button>
           </Block>
           <Block row space="between" style={{ marginTop: theme.SIZES.BASE, flexWrap: 'wrap' }}>
-            {Images.Viewed.map((img, index) => (
+            {Images.Viewed.map((img) => (
               <Block key={`viewed-${img}`} style={styles.shadow}>
                 <Image resizeMode="cover" source={img} style={styles.albumThumb} />
               </Block>

@@ -1,11 +1,10 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions, Keyboard } from 'react-native';
-import { Button, Block, NavBar, Text, theme, Button as GaButton } from 'galio-framework';
+import { Block, NavBar, Text, theme } from 'galio-framework';
 
 import Icon from './Icon';
 import Input from './Input';
-import Tabs from './Tabs';
 import nowTheme from '../constants/Theme';
 
 const { height, width } = Dimensions.get('window');
@@ -47,7 +46,7 @@ class Header extends React.Component {
   };
   renderRight = () => {
     const { white, title, navigation } = this.props;
-    
+
 
     if (title === 'Title') {
       return [
@@ -113,7 +112,7 @@ class Header extends React.Component {
         right
         color="black"
         style={styles.search}
-        placeholder="What are you looking for?"
+        placeholder="Where do you live?"
         placeholderTextColor={'#8898AA'}
         onFocus={() => {Keyboard.dismiss(); navigation.navigate('Pro')}}
         iconContent={
@@ -122,69 +121,24 @@ class Header extends React.Component {
       />
     );
   };
-  renderOptions = () => {
-    const { navigation, optionLeft, optionRight } = this.props;
 
+  renderHeyUser = () => {
     return (
-      <Block row style={styles.options}>
-        <Button
-          shadowless
-          style={[styles.tab, styles.divider]}
-          onPress={() => console.log(navigation.navigate('Pro'))}
-        >
-          <Block row middle>
-            <Icon
-              name="bulb"
-              family="NowExtra"
-              size={18}
-              style={{ paddingRight: 8 }}
-              color={nowTheme.COLORS.HEADER}
-            />
-            <Text style={{ fontFamily: 'montserrat-regular' }} size={16} style={styles.tabTitle}>
-              {optionLeft || 'Beauty'}
-            </Text>
-          </Block>
-        </Button>
-        <Button shadowless style={styles.tab} onPress={() => navigation.navigate('Pro')}>
-          <Block row middle>
-            <Icon
-              size={18}
-              name="bag-162x"
-              family="NowExtra"
-              style={{ paddingRight: 8 }}
-              color={nowTheme.COLORS.HEADER}
-            />
-            <Text style={{ fontFamily: 'montserrat-regular' }} size={16} style={styles.tabTitle}>
-              {optionRight || 'Fashion'}
-            </Text>
-          </Block>
-        </Button>
+      <Block>
+        <Text style={styles.hey}>
+          Hey Kjell!
+        </Text>
       </Block>
-    );
-  };
+    )
+  }
 
-  renderTabs = () => {
-    const { tabs, tabIndex, navigation } = this.props;
-    const defaultTab = tabs && tabs[0] && tabs[0].id;
-
-    if (!tabs) return null;
-
-    return (
-      <Tabs
-        data={tabs || []}
-        initialIndex={tabIndex || defaultTab}
-        onChange={id => navigation.setParams({ tabId: id })}
-      />
-    );
-  };
   renderHeader = () => {
     const { search, options, tabs } = this.props;
     if (search || tabs || options) {
       return (
-        <Block center>
+        <Block left style={styles.heySearch}>
+          {this.renderHeyUser()}
           {search ? this.renderSearch() : null}
-          {options ? this.renderOptions() : null}
-          {tabs ? this.renderTabs() : null}
         </Block>
       );
     }
@@ -279,34 +233,20 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: theme.COLORS.WHITE
   },
-  divider: {
-    borderRightWidth: 0.3,
-    borderRightColor: theme.COLORS.ICON
+  heySearch: {
+    marginLeft: 16
   },
   search: {
     height: 48,
     width: width - 32,
-    marginHorizontal: 16,
     borderWidth: 1,
     borderRadius: 30,
     borderColor: nowTheme.COLORS.BORDER
   },
-  options: {
-    marginBottom: 24,
-    marginTop: 10,
-    elevation: 4
-  },
-  tab: {
-    backgroundColor: theme.COLORS.TRANSPARENT,
-    width: width * 0.35,
-    borderRadius: 0,
-    borderWidth: 0,
-    height: 24,
-    elevation: 0
-  },
-  tabTitle: {
-    lineHeight: 19,
-    fontWeight: '400',
+  hey: {
+    lineHeight: 32,
+    fontSize: 24,
+    fontFamily: 'montserrat-bold',
     color: nowTheme.COLORS.HEADER
   },
   social: {
