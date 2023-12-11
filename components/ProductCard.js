@@ -1,22 +1,23 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
-import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 
 import { nowTheme } from '../constants';
+import { Button } from './index';
+import * as navigation from '@react-navigation/compat/src/helpers';
 
-class Card extends React.Component {
+const { width } = Dimensions.get('screen');
+
+class ProductCard extends React.Component {
   render() {
     const {
-      navigation,
       item,
       horizontal,
       full,
       style,
-      ctaColor,
       imageStyle,
-      ctaRight,
       titleStyle
     } = this.props;
 
@@ -31,12 +32,9 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex style={imgContainer}>
-            <Image resizeMode="cover" source={item.image} style={imageStyles} />
-          </Block>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
+        <Block flex style={imgContainer}>
+          <Image resizeMode="cover" source={{ uri: item.productPictureUrl }} style={imageStyles} />
+        </Block>
           <Block flex space="between" style={styles.cardDescription}>
             <Block flex>
               <Text
@@ -45,67 +43,48 @@ class Card extends React.Component {
                 style={titleStyles}
                 color={nowTheme.COLORS.SECONDARY}
               >
-                {item.title}
+                {item.productPrice/100} €
               </Text>
-              {item.subtitle ? (
+              {item.productName ? (
                 <Block flex center>
                   <Text
                     style={{ fontFamily: 'montserrat-regular' }}
                     size={32}
                     color={nowTheme.COLORS.BLACK}
                   >
-                    {item.subtitle}
+                    {item.productName}
                   </Text>
                 </Block>
               ) : (
                   <Block />
                 )}
-              {item.description ? (
+              {item.productName ? (
                 <Block flex center>
                   <Text
                     style={{ fontFamily: 'montserrat-regular', textAlign: 'center', padding: 15 }}
                     size={14}
                     color={"#9A9A9A"}
                   >
-                    {item.description}
-                  </Text>
-                </Block>
-              ) : (
-                  <Block />
-                )}
-              {item.body ? (
-                <Block flex left>
-                  <Text
-                    style={{ fontFamily: 'montserrat-regular' }}
-                    size={12}
-                    color={nowTheme.COLORS.TEXT}
-                  >
-                    {item.body}
+                    {item.productName}
                   </Text>
                 </Block>
               ) : (
                   <Block />
                 )}
             </Block>
-            <Block right={ctaRight ? true : false}>
-              <Text
-                style={styles.articleButton}
-                size={12}
-                muted={!ctaColor}
-                color={ctaColor || nowTheme.COLORS.ACTIVE}
-                bold
-              >
-                {item.cta}
-              </Text>
-            </Block>
+            <Button textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+                    style={styles.button}
+                    onPress={() => navigation.navigate('Pro')}
+            >
+              ADD TO CART
+            </Button>
           </Block>
-        </TouchableWithoutFeedback>
       </Block>
     );
   }
 }
 
-Card.propTypes = {
+ProductCard.propTypes = {
   item: PropTypes.object,
   horizontal: PropTypes.bool,
   full: PropTypes.bool,
@@ -166,7 +145,12 @@ const styles = StyleSheet.create({
     fontFamily: 'montserrat-bold',
     paddingHorizontal: 9,
     paddingVertical: 7
-  }
+  },
+  button: {
+    marginTop: theme.SIZES.BASE*1.2,
+    marginBottom: theme.SIZES.BASE,
+    width: width - theme.SIZES.BASE * 2,
+  },
 });
 
-export default withNavigation(Card);
+export default withNavigation(ProductCard);

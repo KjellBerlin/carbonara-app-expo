@@ -1,5 +1,5 @@
 import Button from './Button';
-import Card from './Card';
+import Card from './ProductCard';
 import DrawerItem from './DrawerItem';
 import Icon from './Icon';
 import Header from './Header';

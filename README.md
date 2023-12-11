@@ -101,7 +101,7 @@ now-ui-react-native/
 ├── babel.config.js
 ├── components/
 │   ├── Button.js
-│   ├── Card.js
+│   ├── ProductCard.js
 │   ├── Checkbox.js
 │   ├── DrawerItem.js
 │   ├── Header.js

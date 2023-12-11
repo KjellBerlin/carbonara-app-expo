@@ -4,12 +4,9 @@ import {
   StyleSheet,
   Dimensions,
   TouchableOpacity,
-  Image,
-  Animated,
-  ImageBackground
+  Image
 } from 'react-native';
 
-import Articles from '../screens/Articles';
 // Galio components
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 
@@ -18,7 +15,6 @@ import { Images, nowTheme, tabs } from '../constants';
 import { Button, Select, Icon, Input, Header, Switch } from '../components';
 
 import Img from '../components/Img';
-import { Card } from '../components';
 
 
 const { width } = Dimensions.get('screen');
@@ -478,50 +474,6 @@ class Components extends React.Component {
     );
   };
 
-  renderCards = () => {
-    scrollX = new Animated.Value(0);
-    return (
-      <Block flex style={styles.group}>
-
-        <Articles />
-        <Block flex card center shadow style={styles.category}>
-          <ImageBackground
-            source={Images.Products['path']}
-            style={[
-              styles.imageBlock,
-              { width: width - theme.SIZES.BASE * 2, height: 252 }
-            ]}
-            imageStyle={{
-              width: width - theme.SIZES.BASE * 2,
-              height: 252
-            }}
-          >
-            <Block style={styles.categoryTitle}>
-              <Text size={18} bold color={theme.COLORS.WHITE}>
-                View article
-              </Text>
-            </Block>
-          </ImageBackground>
-        </Block>
-        <ScrollView
-          horizontal={true}
-          style={styles.contentContainer}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          scrollEventThrottle={16}
-          contentContainerStyle={{
-            width: width * 2
-          }}>
-          {cards.map((item, index) => {
-            return <Card key={index} item={item} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'contain' } }/>
-          })}
-        </ScrollView>
-
-      </Block>
-
-    );
-  };
-
   renderAlbums = () => {
 
     return (
@@ -561,7 +513,6 @@ class Components extends React.Component {
           {this.renderTableCell()}
           {this.renderNavigation()}
           {this.renderSocial()}
-          {this.renderCards()}
           {this.renderAlbums()}
         </ScrollView>
       </Block>

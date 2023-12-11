@@ -1,36 +1,42 @@
 import React from "react";
-import { StyleSheet, Dimensions, ScrollView, Animated } from 'react-native';
-import { Block } from "galio-framework";
+import { StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { Block } from 'galio-framework';
 
 import { Card } from "../components";
-import articles from "../constants/articles";
 import { nowTheme } from '../constants';
+import { gql, useQuery } from '@apollo/client';
+import Loading from '../components/Loading';
 const { width } = Dimensions.get("screen");
+
+const PRODUCT_QUERY = gql`
+    query MEALS{
+      activeProduct{
+        productId,
+        productPrice,
+        productName,
+        productPictureUrl
+      }
+    }
+`
+
+export const Product = () => {
+  const {loading, data} = useQuery(PRODUCT_QUERY, { fetchPolicy: "cache-and-network" })
+  if (loading) {
+    return <Loading />
+  }
+  return (
+    <Block>
+      <Card key={0} item={data.activeProduct} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'cover' } }/>
+    </Block>
+  );
+};
 
 class Home extends React.Component {
 
-  // TODO: fetch articles from server
-
   renderCards = () => {
-    scrollX = new Animated.Value(0);
-    const cards = [articles[5], articles[6]]
     return (
       <Block flex style={styles.group}>
-
-        <ScrollView
-          horizontal={true}
-          style={styles.contentContainer}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          scrollEventThrottle={16}
-          contentContainerStyle={{
-            width: width * 2
-          }}>
-          {cards.map((item, index) => {
-            return <Card key={index} item={item} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'contain' } }/>
-          })}
-        </ScrollView>
-
+        <Product/>
       </Block>
 
     );

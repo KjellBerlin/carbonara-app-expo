@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import Screens from './navigation/Screens';
 import { Images, articles, nowTheme } from './constants';
+import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 
 // cache app images
 const assetImages = [
@@ -26,6 +27,13 @@ const assetImages = [
 
 // cache product images
 articles.map(article => assetImages.push(article.image));
+
+const client = new ApolloClient({
+  link: createHttpLink({
+    uri: `https://carbonara-core-mkvkriomda-ew.a.run.app/graphql`,
+  }),
+  cache: new InMemoryCache(),
+});
 
 function cacheImages(images) {
   return images.map(image => {
@@ -63,13 +71,15 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <NavigationContainer>
-          <GalioProvider theme={nowTheme}>
-            <Block flex>
-              <Screens />
-            </Block>
-          </GalioProvider>
-        </NavigationContainer>
+        <ApolloProvider client={client}>
+          <NavigationContainer>
+            <GalioProvider theme={nowTheme}>
+              <Block flex>
+                <Screens />
+              </Block>
+            </GalioProvider>
+          </NavigationContainer>
+        </ApolloProvider>
       );
     }
   }
