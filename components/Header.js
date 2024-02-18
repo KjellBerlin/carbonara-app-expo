@@ -1,11 +1,11 @@
 import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
-import { TouchableOpacity, StyleSheet, Platform, Dimensions, Keyboard } from 'react-native';
+import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Block, NavBar, Text, theme } from 'galio-framework';
 
 import Icon from './Icon';
-import Input from './Input';
 import nowTheme from '../constants/Theme';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () =>
@@ -37,8 +37,6 @@ const BasketButton = ({ isWhite, style, navigation }) => (
   </TouchableOpacity>
 );
 
-
-
 class Header extends React.Component {
   handleLeftPress = () => {
     const { back, navigation } = this.props;
@@ -61,64 +59,54 @@ class Header extends React.Component {
           <BellButton key="chat-home" navigation={navigation} isWhite={white} />,
           <BasketButton key="basket-home" navigation={navigation} isWhite={white} />
         ];
-      case 'Deals':
-        return [
-          <BellButton key="chat-categories" navigation={navigation} />,
-          <BasketButton key="basket-categories" navigation={navigation} />
-        ];
-      case 'Categories':
-        return [
-          <BellButton key="chat-categories" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-categories" navigation={navigation} isWhite={white} />
-        ];
-      case 'Category':
-        return [
-          <BellButton key="chat-deals" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-deals" navigation={navigation} isWhite={white} />
-        ];
-      case 'Profile':
-        return [
-          <BellButton key="chat-profile" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-deals" navigation={navigation} isWhite={white} />
-        ];
       case 'Account':
         return [
           <BellButton key="chat-profile" navigation={navigation} />,
           <BasketButton key="basket-deals" navigation={navigation} />
         ];
-      case 'Product':
-        return [
-          <BellButton key="chat-profile" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-product" navigation={navigation} isWhite={white} />
-        ];
-      case 'Search':
-        return [
-          <BellButton key="chat-search" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-search" navigation={navigation} isWhite={white} />
-        ];
-      case 'Settings':
-        return [
-          <BellButton key="chat-search" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-search" navigation={navigation} isWhite={white} />
-        ];
       default:
         break;
     }
   };
-  renderSearch = () => {
-    const { navigation } = this.props;
+
+  googlePlacesInput = () => {
     return (
-      <Input
-        right
-        color="black"
-        style={styles.search}
-        placeholder="Where do you live?"
-        placeholderTextColor={'#8898AA'}
-        onFocus={() => {Keyboard.dismiss(); navigation.navigate('Pro')}}
-        iconContent={
-          <Icon size={16} color={theme.COLORS.MUTED} name="zoom-bold2x" family="NowExtra"/>
-        }
-      />
+      <Block style={{width: width*0.92, height: 55, marginTop: 8}}>
+        <GooglePlacesAutocomplete
+          placeholder='Where do you live?'
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            // TODO: check address with own BE service, if in delivery area
+            console.log(data, details);
+          }}
+          query={{
+            key: 'AIzaSyBUNIqACbeX2VTDaUZC_1ZsCSMPL6MK2DI',
+            language: 'en',
+            components: 'country:de'
+          }}
+          styles={{
+            textInputContainer: {
+              borderRadius: 5,
+              borderWidth: 0.8,
+              borderColor: nowTheme.COLORS.DEFAULT,
+            },
+            textInput: {
+              height: 36,
+              color: nowTheme.COLORS.HEADER,
+              fontSize: 15,
+              fontFamily: 'montserrat-regular',
+            },
+            listView: {
+              position: 'absolute',
+              marginTop: 50,
+              backgroundColor: 'white',
+              zIndex: 1000,
+              flexDirection: 'row',
+              flexWrap: 'wrap'
+            },
+          }}
+        />
+      </Block>
     );
   };
 
@@ -126,7 +114,7 @@ class Header extends React.Component {
     return (
       <Block>
         <Text style={styles.hey}>
-          HEY KJELL!
+          HEY KJELL
         </Text>
       </Block>
     )
@@ -138,7 +126,7 @@ class Header extends React.Component {
       return (
         <Block left style={styles.heySearch}>
           {this.renderHeyUser()}
-          {search ? this.renderSearch() : null}
+          {search ? this.googlePlacesInput() : null}
         </Block>
       );
     }
