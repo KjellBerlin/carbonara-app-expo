@@ -81,7 +81,7 @@ export default class Tabs extends React.Component {
           style={[
             styles.menuTitle,
             { color: textColor },
-            { fontFamily: 'montserrat-regular' },
+            { fontFamily: 'next-sphere-thin' },
           ]}
           onPress={() => this.selectMenu(item.id)}>
           {item.title}

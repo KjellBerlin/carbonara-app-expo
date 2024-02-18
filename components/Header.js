@@ -116,7 +116,7 @@ class Header extends React.Component {
         placeholderTextColor={'#8898AA'}
         onFocus={() => {Keyboard.dismiss(); navigation.navigate('Pro')}}
         iconContent={
-          <Icon size={16} color={theme.COLORS.MUTED} name="zoom-bold2x" family="NowExtra" />
+          <Icon size={16} color={theme.COLORS.MUTED} name="zoom-bold2x" family="NowExtra"/>
         }
       />
     );
@@ -126,7 +126,7 @@ class Header extends React.Component {
     return (
       <Block>
         <Text style={styles.hey}>
-          Hey Kjell!
+          HEY KJELL!
         </Text>
       </Block>
     )
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'montserrat-regular'
+    fontFamily: 'next-sphere-thin'
   },
   navbar: {
     paddingVertical: 0,
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   hey: {
     lineHeight: 32,
     fontSize: 24,
-    fontFamily: 'montserrat-bold',
+    fontFamily: 'next-sphere-black',
     color: nowTheme.COLORS.HEADER
   },
   social: {

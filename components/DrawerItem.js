@@ -30,26 +30,6 @@ class DrawerItem extends React.Component {
             style={{ opacity: 0.5 }}
           />
         );
-      case 'Articles':
-        return (
-          <Icon
-            name="paper"
-            family="NowExtra"
-            size={18}
-            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
-            style={{ opacity: 0.5 }}
-          />
-        );
-      case 'Profile':
-        return (
-          <Icon
-            name="profile-circle"
-            family="NowExtra"
-            size={18}
-            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
-            style={{ opacity: 0.5 }}
-          />
-        );
       case 'Account':
         return (
           <Icon
@@ -58,35 +38,6 @@ class DrawerItem extends React.Component {
             size={18}
             color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
             style={{ opacity: 0.5 }}
-          />
-        );
-      case 'Settings':
-        return (
-          <Icon
-            name="settings-gear-642x"
-            family="NowExtra"
-            size={18}
-            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
-            style={{ opacity: 0.5 }}
-          />
-        );
-      case 'Examples':
-        return (
-          <Icon
-            name="album"
-            family="NowExtra"
-            size={14}
-            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
-          />
-        );
-      case 'GETTING STARTED':
-        return (
-          <Icon
-            name="spaceship2x"
-            family="NowExtra"
-            size={18}
-            style={{ borderColor: 'rgba(0,0,0,0.5)', opacity: 0.5 }}
-            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
           />
         );
       case 'LOGOUT':
@@ -130,9 +81,8 @@ class DrawerItem extends React.Component {
           <Block row center flex={0.9}>
             <Text
               style={{
-                fontFamily: 'montserrat-regular',
-                textTransform: 'uppercase',
-                fontWeight: '300',
+                fontFamily: 'next-sphere-thin',
+                textTransform: 'uppercase'
               }}
               size={12}
               bold={focused ? true : false}

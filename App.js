@@ -7,7 +7,7 @@ import { Block, GalioProvider } from 'galio-framework';
 import { NavigationContainer } from '@react-navigation/native';
 
 import Screens from './navigation/Screens';
-import { Images, articles, nowTheme } from './constants';
+import { Images, nowTheme } from './constants';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 
 // cache app images
@@ -24,9 +24,6 @@ const assetImages = [
   Images.RegisterBackground,
   Images.ProfileBackground
 ];
-
-// cache product images
-articles.map(article => assetImages.push(article.image));
 
 const client = new ApolloClient({
   link: createHttpLink({
@@ -50,15 +47,6 @@ export default class App extends React.Component {
     isLoadingComplete: false,
     fontLoaded: false
   };
-
-  // async componentDidMount() {
-  //   Font.loadAsync({
-  //     'montserrat-regular': require('./assets/font/Montserrat-Regular.ttf'),
-  //     'montserrat-bold': require('./assets/font/Montserrat-Bold.ttf')
-  //   });
-
-  //   this.setState({ fontLoaded: true });
-  // }
 
   render() {
     if (!this.state.isLoadingComplete) {
@@ -87,7 +75,9 @@ export default class App extends React.Component {
   _loadResourcesAsync = async () => {
     await Font.loadAsync({
       'montserrat-regular': require('./assets/font/Montserrat-Regular.ttf'),
-      'montserrat-bold': require('./assets/font/Montserrat-Bold.ttf')
+      'montserrat-bold': require('./assets/font/Montserrat-Bold.ttf'),
+      'next-sphere-black': require('./assets/font/Next-Sphere-Black.ttf'),
+      'next-sphere-thin': require('./assets/font/Next-Sphere-Thin.ttf'),
     });
 
     this.setState({ fontLoaded: true });

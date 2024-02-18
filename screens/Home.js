@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   productTitle: {
     color: nowTheme.COLORS.PRIMARY,
     textAlign: 'center',
-    fontFamily: 'montserrat-bold',
+    fontFamily: 'next-sphere-black',
     fontSize: 18
   }
 });

@@ -9,16 +9,10 @@ const { width } = Dimensions.get('screen');
 
 class Img extends React.Component {
   render() {
-    const { color, style, type, children, source, ...props } = this.props;
+    const { type } = this.props;
 
-    const colorStyle = color && nowUITheme.COLORS[color.toUpperCase()];
     const avatarPhoto =
     'https://images.unsplash.com/photo-1520271348391-049dd132bb7c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80';
-    const imageStyle = [
-        type,
-
-      { ...style }
-    ];
 
     return (
       <Block>
@@ -45,7 +39,7 @@ Img.propTypes = {
 
 const styles = StyleSheet.create({
   quote: {
-    fontFamily: "montserrat-regular",
+    fontFamily: "next-sphere-black",
     fontSize: 20,
     borderWidth: 1,
     padding: 20

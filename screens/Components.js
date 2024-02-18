@@ -11,11 +11,8 @@ import {
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 
 // Now UI themed components
-import { Images, nowTheme, tabs } from '../constants';
+import { Images, nowTheme } from '../constants';
 import { Button, Select, Icon, Input, Header, Switch } from '../components';
-
-import Img from '../components/Img';
-
 
 const { width } = Dimensions.get('screen');
 
@@ -44,7 +41,7 @@ class Components extends React.Component {
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Block center>
             <Button
-              textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               color="default"
               style={styles.button}
             >
@@ -52,7 +49,7 @@ class Components extends React.Component {
             </Button>
           </Block>
           <Block center>
-            <Button textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+            <Button textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               style={styles.button}
             >
               PRIMARY
@@ -61,7 +58,7 @@ class Components extends React.Component {
           <Block center>
             <Button
               color="info"
-              textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               style={styles.button}
             >
               INFO
@@ -71,7 +68,7 @@ class Components extends React.Component {
 
           <Block center>
             <Button
-              textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               color="success"
               style={styles.button}
             >
@@ -80,7 +77,7 @@ class Components extends React.Component {
           </Block>
           <Block center>
             <Button
-              textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               color="warning"
               style={styles.button}
             >
@@ -89,7 +86,7 @@ class Components extends React.Component {
           </Block>
           <Block center>
             <Button
-              textStyle={{ fontFamily: 'montserrat-regular', fontSize: 12 }}
+              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               color="error"
               style={styles.button}
             >
@@ -98,7 +95,7 @@ class Components extends React.Component {
           </Block>
           <Block center>
             <Button
-              textStyle={{ fontFamily: 'montserrat-regular', color: nowTheme.COLORS.PRIMARY, fontSize: 12 }}
+              textStyle={{ fontFamily: 'next-sphere-black', color: nowTheme.COLORS.PRIMARY, fontSize: 12 }}
               color="neutral"
               style={styles.button}
             >
@@ -111,7 +108,7 @@ class Components extends React.Component {
             </Block>
             <Block flex>
               <Button
-                textStyle={{ fontFamily: 'montserrat-regular', fontSize: 10 }}
+                textStyle={{ fontFamily: 'next-sphere-black', fontSize: 10 }}
                 small
                 center
                 color="default"
@@ -122,7 +119,7 @@ class Components extends React.Component {
             </Block>
             <Block flex right>
               <Button
-                textStyle={{ fontFamily: 'montserrat-regular', fontSize: 10 }}
+                textStyle={{ fontFamily: 'next-sphere-black', fontSize: 10 }}
                 center
                 color="default"
                 style={styles.optionsButton}
@@ -146,7 +143,7 @@ class Components extends React.Component {
           <Text
             h1
             style={{
-              fontFamily: 'montserrat-regular',
+              fontFamily: 'next-sphere-black',
               marginBottom: theme.SIZES.BASE / 2
             }}
             color={nowTheme.COLORS.HEADER}
@@ -156,7 +153,7 @@ class Components extends React.Component {
           <Text
             h2
             style={{
-              fontFamily: 'montserrat-regular',
+              fontFamily: 'next-sphere-black',
               marginBottom: theme.SIZES.BASE / 2
             }}
             color={nowTheme.COLORS.HEADER}
@@ -166,7 +163,7 @@ class Components extends React.Component {
           <Text
             h3
             style={{
-              fontFamily: 'montserrat-regular',
+              fontFamily: 'next-sphere-black',
               marginBottom: theme.SIZES.BASE / 2
             }}
             color={nowTheme.COLORS.HEADER}
@@ -176,7 +173,7 @@ class Components extends React.Component {
           <Text
             h4
             style={{
-              fontFamily: 'montserrat-regular',
+              fontFamily: 'next-sphere-black',
               marginBottom: theme.SIZES.BASE / 2
             }}
             color={nowTheme.COLORS.HEADER}
@@ -186,7 +183,7 @@ class Components extends React.Component {
           <Text
             h5
             style={{
-              fontFamily: 'montserrat-regular',
+              fontFamily: 'next-sphere-black',
               marginBottom: theme.SIZES.BASE / 2
             }}
             color={nowTheme.COLORS.HEADER}
@@ -196,39 +193,20 @@ class Components extends React.Component {
           <Text
             p
             style={{
-              fontFamily: 'montserrat-regular',
+              fontFamily: 'next-sphere-black',
               marginBottom: theme.SIZES.BASE / 2
             }}
             color={nowTheme.COLORS.HEADER}
           >
             Paragraph
           </Text>
-          <Text style={{ fontFamily: 'montserrat-regular' }} muted>
+          <Text style={{ fontFamily: 'next-sphere-thin' }} muted>
             This is a muted paragraph.
           </Text>
         </Block>
       </Block>
     );
   };
-  renderImages = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Text size={16} style={styles.title}>
-          Images
-        </Text>
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Block middle row>
-            <Img type="raised"></Img>
-          </Block>
-          <Block middle row>
-            <Img type="circle" />
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
-
 
   renderInputs = () => {
     return (
@@ -317,7 +295,7 @@ class Components extends React.Component {
         <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
           <Block row middle space="between" style={{ marginBottom: theme.SIZES.BASE }}>
             <Text
-              style={{ fontFamily: 'montserrat-regular' }}
+              style={{ fontFamily: 'next-sphere-thin' }}
               size={14}
               color={nowTheme.COLORS.TEXT}
             >
@@ -330,7 +308,7 @@ class Components extends React.Component {
           </Block>
           <Block row middle space="between">
             <Text
-              style={{ fontFamily: 'montserrat-regular' }}
+              style={{ fontFamily: 'next-sphere-thin' }}
               size={14}
               color={nowTheme.COLORS.TEXT}
             >
@@ -394,10 +372,6 @@ class Components extends React.Component {
               iconColor="white"
               white={true}
             />
-          </Block>
-
-          <Block style={{ marginBottom: theme.SIZES.BASE }}>
-            <Header tabs={tabs.beauty} title="Title" navigation={this.props.navigation} />
           </Block>
 
           <Block style={{ marginBottom: theme.SIZES.BASE }}>
@@ -522,7 +496,7 @@ class Components extends React.Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: 'montserrat-bold',
+    fontFamily: 'next-sphere-black',
     paddingBottom: theme.SIZES.BASE,
     paddingHorizontal: theme.SIZES.BASE * 2,
     marginTop: 44,
@@ -581,7 +555,7 @@ const styles = StyleSheet.create({
   productTitle: {
     color: nowTheme.COLORS.PRIMARY,
     textAlign: 'center',
-    fontFamily: 'montserrat-bold',
+    fontFamily: 'next-sphere-black',
     fontSize: 18
   }
 });

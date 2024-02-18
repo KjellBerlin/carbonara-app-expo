@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.SIZES.BASE
   },
   title: {
-    fontFamily: 'montserrat-bold',
+    fontFamily: 'next-sphere-black',
     paddingBottom: theme.SIZES.BASE,
     marginTop: 44,
     color: nowTheme.COLORS.HEADER

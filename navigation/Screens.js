@@ -1,10 +1,8 @@
-import { Animated, Dimensions, Easing } from 'react-native';
+import { Dimensions } from 'react-native';
 // header for screens
-import { Header, Icon } from '../components';
-import { nowTheme, tabs } from '../constants';
+import { Header } from '../components';
+import { nowTheme } from '../constants';
 
-import Articles from '../screens/Articles';
-import { Block } from 'galio-framework';
 import Components from '../screens/Components';
 // drawer
 import CustomDrawerContent from './Menu';
@@ -14,8 +12,6 @@ import Onboarding from '../screens/Onboarding';
 import Pro from '../screens/Pro';
 import React from 'react';
 import Register from '../screens/Register';
-import SettingsScreen from '../screens/Settings';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -39,29 +35,6 @@ function ComponentsStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Components" navigation={navigation} scene={scene} />
-          ),
-          backgroundColor: '#FFFFFF',
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function ArticlesStack(props) {
-  return (
-    <Stack.Navigator
-      initialRouteName="Articles"
-      screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
-      }}
-    >
-      <Stack.Screen
-        name="Articles"
-        component={Articles}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Articles" navigation={navigation} scene={scene} />
           ),
           backgroundColor: '#FFFFFF',
         }}
@@ -166,13 +139,6 @@ function AppStack(props) {
       <Drawer.Screen
         name="Components"
         component={ComponentsStack}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Drawer.Screen
-        name="Articles"
-        component={ArticlesStack}
         options={{
           headerShown: false,
         }}
