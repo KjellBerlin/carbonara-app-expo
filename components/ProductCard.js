@@ -55,7 +55,7 @@ class ProductCard extends React.Component {
                       fontFamily: 'next-sphere-black',
                       marginBottom: theme.SIZES.BASE / 2
                   }}
-                    color={nowTheme.COLORS.SECONDARY}
+                    color={nowTheme.COLORS.HEADER}
                   >
                     {item.productName}
                   </Text>
@@ -108,7 +108,6 @@ ProductCard.propTypes = {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.COLORS.WHITE,
-    marginVertical: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
     marginBottom: 4

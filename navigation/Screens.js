@@ -20,6 +20,38 @@ const { width } = Dimensions.get('screen');
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
+function HomeStack(props) {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        mode: 'card',
+        headerShown: 'screen',
+      }}
+    >
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Home" search options navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
+        }}
+      />
+      <Stack.Screen
+        name="Pro"
+        component={Pro}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="" back white transparent navigation={navigation} scene={scene} />
+          ),
+          headerTransparent: true,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function ComponentsStack(props) {
   return (
     <Stack.Navigator
@@ -58,38 +90,6 @@ function AccountStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header transparent title="Create Account" navigation={navigation} scene={scene} />
-          ),
-          headerTransparent: true,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function HomeStack(props) {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
-      }}
-    >
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Home" search options navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: '#FFFFFF' },
-        }}
-      />
-      <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="" back white transparent navigation={navigation} scene={scene} />
           ),
           headerTransparent: true,
         }}
