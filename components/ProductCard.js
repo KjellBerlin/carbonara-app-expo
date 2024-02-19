@@ -67,13 +67,13 @@ class ProductCard extends React.Component {
                 <Block flex center>
                   <Text
                     style={{
-                      fontFamily: 'next-sphere-thin',
+                      fontFamily: 'montserrat-regular',
                       textAlign: 'center',
                       padding: 15,
                       lineHeight: 14
                   }}
                     size={14}
-                    color={nowTheme.COLORS.BLACK}
+                    color={nowTheme.COLORS.DEFAULT}
                   >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                   </Text>

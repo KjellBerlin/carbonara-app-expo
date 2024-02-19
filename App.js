@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Screens from './navigation/Screens';
 import { Images, nowTheme } from './constants';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import {useAuth0, Auth0Provider} from 'react-native-auth0';
 
 // cache app images
 const assetImages = [
@@ -49,6 +50,28 @@ export default class App extends React.Component {
   };
 
   render() {
+
+    const {authorize, clearSession, user, error, isLoading} = useAuth0();
+
+    const onLogin = async () => {
+      try {
+        await authorize();
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    const onLogout = async () => {
+      try {
+        await clearSession();
+      } catch (e) {
+        console.log('Log out cancelled');
+      }
+    };
+
+    const loggedIn = user !== undefined && user !== null;
+
+
     if (!this.state.isLoadingComplete) {
       return (
         <AppLoading
@@ -59,15 +82,17 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <ApolloProvider client={client}>
-          <NavigationContainer>
-            <GalioProvider theme={nowTheme}>
-              <Block flex>
-                <Screens />
-              </Block>
-            </GalioProvider>
-          </NavigationContainer>
-        </ApolloProvider>
+        <Auth0Provider domain={"dev-yntwqm72gdl58ssy.us.auth0.com"} clientId={"df43s61p15MI3pp7UoBPV0tEQ0DA6dIc"}>
+          <ApolloProvider client={client}>
+            <NavigationContainer>
+              <GalioProvider theme={nowTheme}>
+                <Block flex>
+                  <Screens />
+                </Block>
+              </GalioProvider>
+            </NavigationContainer>
+          </ApolloProvider>
+        </Auth0Provider>
       );
     }
   }
