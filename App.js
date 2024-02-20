@@ -50,28 +50,6 @@ export default class App extends React.Component {
   };
 
   render() {
-
-    const {authorize, clearSession, user, error, isLoading} = useAuth0();
-
-    const onLogin = async () => {
-      try {
-        await authorize();
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    const onLogout = async () => {
-      try {
-        await clearSession();
-      } catch (e) {
-        console.log('Log out cancelled');
-      }
-    };
-
-    const loggedIn = user !== undefined && user !== null;
-
-
     if (!this.state.isLoadingComplete) {
       return (
         <AppLoading

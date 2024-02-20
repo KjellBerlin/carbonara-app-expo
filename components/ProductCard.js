@@ -82,9 +82,10 @@ class ProductCard extends React.Component {
                   <Block />
                 )}
             </Block>
-            <Button textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
-                    style={styles.button}
-                    onPress={() => navigation.navigate('Pro')}
+            <Button
+              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
+              style={styles.button}
+              onPress={() => navigation.navigate('Pro')}
             >
               Order
             </Button>
