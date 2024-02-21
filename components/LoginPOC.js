@@ -1,15 +1,16 @@
 import React from 'react';
-import {Button, Text, View, StyleSheet} from 'react-native';
-import {useAuth0, Auth0Provider} from 'react-native-auth0';
+import { Button, Text, View } from 'react-native';
+import { useAuth0 } from 'react-native-auth0';
 
 const LoginPOC = () => {
   const {authorize, clearSession, user, error, isLoading} = useAuth0();
 
   const onLogin = async () => {
     try {
-      await authorize();
       // TODO: figure out how to get auth code here
       // TODO: BE request to get auth token
+      const credentials = await authorize()
+      console.log("AccessToken: "+credentials.accessToken)
 
     } catch (e) {
       console.log(e);
