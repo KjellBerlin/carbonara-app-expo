@@ -14,14 +14,10 @@ import {useAuth0, Auth0Provider} from 'react-native-auth0';
 // cache app images
 const assetImages = [
   Images.Onboarding,
-  Images.Logo,
   Images.Pro,
-  Images.NowLogo,
   Images.iOSLogo,
   Images.androidLogo,
   Images.ProfilePicture,
-  Images.CreativeTimLogo,
-  Images.InvisionLogo,
   Images.RegisterBackground,
   Images.ProfileBackground
 ];

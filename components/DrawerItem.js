@@ -4,6 +4,7 @@ import { Linking, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from './Icon';
 import React from 'react';
 import nowTheme from '../constants/Theme';
+import { useAuth0 } from 'react-native-auth0';
 
 class DrawerItem extends React.Component {
   renderIcon = () => {
@@ -67,11 +68,9 @@ class DrawerItem extends React.Component {
       <TouchableOpacity
         style={{ height: 60 }}
         onPress={() =>
-          title == 'GETTING STARTED'
-            ? Linking.openURL('https://demos.creative-tim.com/now-ui-pro-react-native/docs/').catch(
-                (err) => console.error('An error occurred', err)
-              )
-            : navigation.navigate(title == 'LOGOUT' ? 'Onboarding' : title)
+          // TODO: logout here correctly
+          navigation.navigate(title === 'LOGOUT'
+              ? 'Onboarding' : title)
         }
       >
         <Block flex row style={containerStyles}>
