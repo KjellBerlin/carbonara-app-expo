@@ -7,15 +7,6 @@ const iOSLogo = require('../assets/imgs/ios.png');
 const androidLogo = require('../assets/imgs/android.png');
 const ProfilePicture = require('../assets/imgs/profile-img.jpg');
 
-const Viewed = [
-  require('../assets/imgs/project5.jpg'),
-  require('../assets/imgs/project7.jpg'),
-  require('../assets/imgs/project6.jpg'),
-  require('../assets/imgs/project4.jpg'),
-  require('../assets/imgs/project21.jpg'),
-  require('../assets/imgs/project24.jpg')
-];
-
 const Products = {
   text: 'View article',
   path: require('../assets/imgs/bg15.jpg')
@@ -26,7 +17,6 @@ export default {
   ProfileBackground,
   ProfilePicture,
   RegisterBackground,
-  Viewed,
   Pro,
   Products,
   iOSLogo,

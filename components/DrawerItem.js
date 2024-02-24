@@ -1,15 +1,15 @@
 import { Block, Text, theme } from 'galio-framework';
-import { Linking, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 import Icon from './Icon';
 import React from 'react';
 import nowTheme from '../constants/Theme';
 import { useAuth0 } from 'react-native-auth0';
+import Onboarding from '../screens/Onboarding';
 
-class DrawerItem extends React.Component {
-  renderIcon = () => {
-    const { title, focused } = this.props;
+const DrawerItem = ({ title, focused, navigation }) => {
 
+  const renderIcon = () => {
     switch (title) {
       case 'Home':
         return (
@@ -56,45 +56,59 @@ class DrawerItem extends React.Component {
     }
   };
 
-  render() {
-    const { focused, title, navigation } = this.props;
+  const containerStyles = [
+    styles.defaultStyle,
+    focused ? [styles.activeStyle, styles.shadow] : null,
+  ];
 
-    const containerStyles = [
-      styles.defaultStyle,
-      focused ? [styles.activeStyle, styles.shadow] : null,
-    ];
+  const {clearSession} = useAuth0();
 
-    return (
-      <TouchableOpacity
-        style={{ height: 60 }}
-        onPress={() =>
-          // TODO: logout here correctly
-          navigation.navigate(title === 'LOGOUT'
-              ? 'Onboarding' : title)
+  const onLogout = async () => {
+    try {
+      await clearSession();
+      navigation.navigate(title === 'LOGOUT' ? 'Onboarding' : title)
+      console.log('Log out successful')
+    } catch (e) {
+      console.log('Log out cancelled');
+    }
+  };
+
+  return (
+    <TouchableOpacity
+      style={{ height: 60 }}
+      onPress={() => {
+        if (title === 'LOGOUT') {
+          onLogout().then(r =>
+          navigation.navigate('Home')) // Navigate to Home when log out not successful
+        } else {
+          navigation.navigate(title)
         }
-      >
-        <Block flex row style={containerStyles}>
-          <Block middle flex={0.1} style={{ marginRight: 5 }}>
-            {this.renderIcon()}
-          </Block>
-          <Block row center flex={0.9}>
-            <Text
-              style={{
-                fontFamily: 'next-sphere-thin',
-                textTransform: 'uppercase'
-              }}
-              size={12}
-              bold={focused ? true : false}
-              color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
-            >
-              {title}
-            </Text>
-          </Block>
+      }}
+    >
+      <Block flex row style={containerStyles}>
+        <Block middle flex={0.1} style={{ marginRight: 5 }}>
+          {renderIcon()}
         </Block>
-      </TouchableOpacity>
-    );
-  }
-}
+        <Block row center flex={0.9}>
+          <Text
+            style={{
+              fontFamily: 'next-sphere-thin',
+              textTransform: 'uppercase'
+            }}
+            size={12}
+            bold={focused ? true : false}
+            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
+          >
+            {title}
+          </Text>
+        </Block>
+      </Block>
+    </TouchableOpacity>
+  );
+};
+
+export default DrawerItem;
+
 
 const styles = StyleSheet.create({
   defaultStyle: {
@@ -117,5 +131,3 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
   },
 });
-
-export default DrawerItem;

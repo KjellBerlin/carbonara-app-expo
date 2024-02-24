@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions, Platform, View } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions, Platform } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
@@ -8,12 +8,14 @@ import { HeaderHeight } from '../constants/utils';
 import { useAuth0 } from 'react-native-auth0';
 
 const Onboarding = ({ navigation }) => {
-  const {authorize, clearSession, user, isLoading} = useAuth0();
+  const {authorize} = useAuth0();
 
   const onLogin = async () => {
     try {
       const credentials = await authorize()
+      // TODO: remove this log
       console.log("AccessToken: "+credentials.accessToken)
+      console.log("Log in successful")
       // TODO: BE request to get final auth jwt token
 
       navigation.navigate('App')
@@ -21,20 +23,6 @@ const Onboarding = ({ navigation }) => {
       console.log(e);
     }
   };
-
-  const onLogout = async () => {
-    try {
-      await clearSession();
-    } catch (e) {
-      console.log('Log out cancelled');
-    }
-  };
-
-  if (isLoading) {
-    return <View><Text>Loading</Text></View>;
-  }
-
-  const loggedIn = user !== undefined && user !== null;
 
   return (
     <Block flex style={styles.container}>
@@ -62,9 +50,9 @@ const Onboarding = ({ navigation }) => {
             <Button
               textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
               style={styles.button}
-              onPress={loggedIn ? onLogout : onLogin}
+              onPress={onLogin}
             >
-              {loggedIn ? 'Log Out' : 'Log In'}
+              LOG IN   I   SIGN UP
             </Button>
           </Block>
         </Block>
@@ -74,7 +62,6 @@ const Onboarding = ({ navigation }) => {
 };
 
 export default Onboarding;
-
 
 const styles = StyleSheet.create({
   container: {
