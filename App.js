@@ -9,18 +9,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import Screens from './navigation/Screens';
 import { Images, nowTheme } from './constants';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
+import {useAuth0, Auth0Provider} from 'react-native-auth0';
 
 // cache app images
 const assetImages = [
   Images.Onboarding,
-  Images.Logo,
   Images.Pro,
-  Images.NowLogo,
   Images.iOSLogo,
   Images.androidLogo,
   Images.ProfilePicture,
-  Images.CreativeTimLogo,
-  Images.InvisionLogo,
   Images.RegisterBackground,
   Images.ProfileBackground
 ];
@@ -59,15 +56,17 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <ApolloProvider client={client}>
-          <NavigationContainer>
-            <GalioProvider theme={nowTheme}>
-              <Block flex>
-                <Screens />
-              </Block>
-            </GalioProvider>
-          </NavigationContainer>
-        </ApolloProvider>
+        <Auth0Provider domain={"dev-yntwqm72gdl58ssy.us.auth0.com"} clientId={"df43s61p15MI3pp7UoBPV0tEQ0DA6dIc"}>
+          <ApolloProvider client={client}>
+            <NavigationContainer>
+              <GalioProvider theme={nowTheme}>
+                <Block flex>
+                  <Screens />
+                </Block>
+              </GalioProvider>
+            </NavigationContainer>
+          </ApolloProvider>
+        </Auth0Provider>
       );
     }
   }
