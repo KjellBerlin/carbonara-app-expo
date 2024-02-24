@@ -18,22 +18,11 @@ const BellButton = ({ isWhite, style, navigation }) => (
   >
     <Icon
       family="NowExtra"
-      size={16}
+      size={18}
       name="bulb"
       color={nowTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
-    <Block middle style={[styles.notify, { backgroundColor: nowTheme.COLORS[isWhite ? 'WHITE' : 'PRIMARY'] }]} />
-  </TouchableOpacity>
-);
 
-const BasketButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Pro')}>
-    <Icon
-      family="NowExtra"
-      size={16}
-      name="basket2x"
-      color={nowTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
   </TouchableOpacity>
 );
 
@@ -44,12 +33,10 @@ class Header extends React.Component {
   };
   renderRight = () => {
     const { white, title, navigation } = this.props;
-
-
+    // TODO: Navigate to about page
     if (title === 'Title') {
       return [
         <BellButton key="chat-title" navigation={navigation} isWhite={white} />,
-        <BasketButton key="basket-title" navigation={navigation} isWhite={white} />
       ];
     }
 
@@ -57,12 +44,10 @@ class Header extends React.Component {
       case 'Home':
         return [
           <BellButton key="chat-home" navigation={navigation} isWhite={white} />,
-          <BasketButton key="basket-home" navigation={navigation} isWhite={white} />
         ];
       case 'Account':
         return [
           <BellButton key="chat-profile" navigation={navigation} />,
-          <BasketButton key="basket-deals" navigation={navigation} />
         ];
       default:
         break;
@@ -186,8 +171,8 @@ class Header extends React.Component {
 
 const styles = StyleSheet.create({
   button: {
-    padding: 12,
-    position: 'relative'
+    position: 'relative',
+    paddingLeft: 39
   },
   title: {
     width: '100%',
@@ -199,7 +184,8 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4 : theme.SIZES.BASE,
-    zIndex: 5
+    zIndex: 5,
+    paddingRight: 0
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
@@ -208,15 +194,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOpacity: 0.2,
     elevation: 3
-  },
-  notify: {
-    backgroundColor: nowTheme.COLORS.SUCCESS,
-    borderRadius: 4,
-    height: theme.SIZES.BASE / 2,
-    width: theme.SIZES.BASE / 2,
-    position: 'absolute',
-    top: 9,
-    right: 12
   },
   header: {
     backgroundColor: theme.COLORS.WHITE

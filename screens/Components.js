@@ -3,15 +3,14 @@ import {
   ScrollView,
   StyleSheet,
   Dimensions,
-  TouchableOpacity,
-  Image
+  TouchableOpacity
 } from 'react-native';
 
 // Galio components
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 
 // Now UI themed components
-import { Images, nowTheme } from '../constants';
+import { nowTheme } from '../constants';
 import { Button, Select, Icon, Input, Header, Switch } from '../components';
 
 const { width } = Dimensions.get('screen');
@@ -448,31 +447,6 @@ class Components extends React.Component {
     );
   };
 
-  renderAlbums = () => {
-
-    return (
-      <Block flex style={[styles.group, { paddingBottom: theme.SIZES.BASE * 5 }]}>
-        <Block style={{ marginHorizontal: theme.SIZES.BASE * 2 }}>
-          <Block row space="between">
-            <Text bold size={16} color="#333" style={{ marginTop: 3 }}>
-              Album
-            </Text>
-            <Button small color="transparent" textStyle={{ color: nowTheme.COLORS.PRIMARY, fontSize: 14 }}>
-              View All
-            </Button>
-          </Block>
-          <Block row space="between" style={{ marginTop: theme.SIZES.BASE, flexWrap: 'wrap' }}>
-            {Images.Viewed.map((img) => (
-              <Block key={`viewed-${img}`} style={styles.shadow}>
-                <Image resizeMode="cover" source={img} style={styles.albumThumb} />
-              </Block>
-            ))}
-          </Block>
-        </Block>
-      </Block>
-    );
-  };
-
   render() {
     return (
       <Block flex center>
@@ -487,7 +461,6 @@ class Components extends React.Component {
           {this.renderTableCell()}
           {this.renderNavigation()}
           {this.renderSocial()}
-          {this.renderAlbums()}
         </ScrollView>
       </Block>
     );

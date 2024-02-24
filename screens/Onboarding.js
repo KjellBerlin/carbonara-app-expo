@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, StatusBar, Dimensions, Platform } from 'react-native';
 import { Block, Button, Text, theme } from 'galio-framework';
 
@@ -8,13 +8,20 @@ import { HeaderHeight } from '../constants/utils';
 import { useAuth0 } from 'react-native-auth0';
 
 const Onboarding = ({ navigation }) => {
-  const {authorize} = useAuth0();
+  const { authorize, user } = useAuth0();
+  const loggedIn = user !== undefined && user !== null;
+
+  useEffect(() => {
+      if (loggedIn === true) navigation.navigate('App')
+    }
+  )
 
   const onLogin = async () => {
     try {
       const credentials = await authorize()
       // TODO: remove this log
       console.log("AccessToken: "+credentials.accessToken)
+      console.log("Expires: "+credentials.expiresAt)
       console.log("Log in successful")
       // TODO: BE request to get final auth jwt token
 
