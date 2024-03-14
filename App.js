@@ -9,17 +9,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import Screens from './navigation/Screens';
 import { Images, nowTheme } from './constants';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
-import {useAuth0, Auth0Provider} from 'react-native-auth0';
+import { Auth0Provider } from 'react-native-auth0';
 
 // cache app images
 const assetImages = [
-  Images.Onboarding,
-  Images.Pro,
-  Images.iOSLogo,
-  Images.androidLogo,
-  Images.ProfilePicture,
-  Images.RegisterBackground,
-  Images.ProfileBackground
+  Images.RegisterBackground
 ];
 
 const client = new ApolloClient({

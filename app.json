@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Now UI React Native",
-    "slug": "now-ui-react-native",
+    "name": "Carbonara",
+    "slug": "Carbonara",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -30,6 +30,6 @@
     "android": {
       "package": "com.auth0samples"
     },
-    "description": "Now UI React Native, based on Now UI Design System. Coded by Creative Tim"
+    "description": "Carbonara food app"
   }
 }
