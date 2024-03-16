@@ -19,9 +19,11 @@ const Onboarding = ({ navigation }) => {
 
   const onLogin = async () => {
     try {
-      const credentials = await authorize();
+      const credentials = await authorize({
+        audience: 'https://api.carbonara-app.com',
+        scope: 'create:orders'
+      });
       console.log("AccessToken: " + credentials.accessToken);
-      console.log("Expires: " + credentials.expiresAt);
       console.log("Log in successful");
       navigation.navigate('App');
     } catch (e) {
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: nowTheme.COLORS.BLACK,
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
     flex: 1,
-    alignItems: 'center', // This ensures that children align center horizontally
+    alignItems: 'center',
   },
   content: {
     paddingHorizontal: nowTheme.SIZES.BASE * 2,
