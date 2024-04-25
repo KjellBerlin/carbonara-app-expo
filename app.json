@@ -11,7 +11,16 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "plugins": [
-      "expo-build-properties"
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "14.0"
+          },
+          "android": {}
+        }
+      ],
+      "expo-font"
     ],
     "splash": {
       "image": "./assets/splash.png",
