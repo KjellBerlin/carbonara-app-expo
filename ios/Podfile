@@ -5,7 +5,7 @@ require File.join(File.dirname(`node --print "require.resolve('@react-native-com
 require 'json'
 podfile_properties = JSON.parse(File.read(File.join(__dir__, 'Podfile.properties.json'))) rescue {}
 
-platform :ios, podfile_properties['ios.deploymentTarget'] || '14.0'
+platform :ios, podfile_properties['ios.deploymentTarget']
 install! 'cocoapods',
   :deterministic_uuids => false
 
@@ -34,6 +34,13 @@ target 'Carbonara' do
   # end
 
   post_install do |installer|
+    installer.generated_projects.each do |project|
+      project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = podfile_properties['ios.deploymentTarget']
+        end
+      end
+    end
     react_native_post_install(installer)
   end
 
@@ -43,16 +50,7 @@ target 'Carbonara' do
     rescue => e
       Pod::UI.warn e
     end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
   end
 
 end
+
