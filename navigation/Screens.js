@@ -1,15 +1,11 @@
 import { Dimensions } from 'react-native';
-// header for screens
 import { Header } from '../components';
 import { nowTheme } from '../constants';
 
 import Components from '../screens/Components';
-// drawer
 import CustomDrawerContent from './Menu';
-// screens
 import Home from '../screens/Home';
 import Onboarding from '../screens/Onboarding';
-import Pro from '../screens/Pro';
 import React from 'react';
 import Register from '../screens/Register';
 import { createDrawerNavigator } from '@react-navigation/drawer';

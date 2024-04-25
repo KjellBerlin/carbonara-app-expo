@@ -10,16 +10,30 @@ import Screens from './navigation/Screens';
 import { Images, nowTheme } from './constants';
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache } from '@apollo/client';
 import { Auth0Provider } from 'react-native-auth0';
+import { setContext } from '@apollo/client/link/context';
+import * as SecureStore from 'expo-secure-store';
 
 // cache app images
 const assetImages = [
   Images.RegisterBackground
 ];
 
+const httpLink = createHttpLink({
+  uri: 'https://carbonara-core-mkvkriomda-ew.a.run.app/graphql',
+});
+
+const authLink = setContext(async (_, { headers }) => {
+  const token = await SecureStore.getItemAsync('jwt_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    }
+  }
+});
+
 const client = new ApolloClient({
-  link: createHttpLink({
-    uri: `https://carbonara-core-mkvkriomda-ew.a.run.app/graphql`,
-  }),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -78,8 +92,6 @@ export default class App extends React.Component {
   };
 
   _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
     console.warn(error);
   };
 

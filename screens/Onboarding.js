@@ -4,6 +4,7 @@ import { Block, Text, Button } from 'galio-framework';
 import { nowTheme } from '../constants/';
 import { HeaderHeight } from '../constants/utils';
 import { useAuth0 } from 'react-native-auth0';
+import * as SecureStore from 'expo-secure-store';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -23,7 +24,7 @@ const Onboarding = ({ navigation }) => {
         audience: 'https://api.carbonara-app.com',
         scope: 'create:orders'
       });
-      console.log("AccessToken: " + credentials.accessToken);
+      await SecureStore.setItemAsync('jwt_token',credentials.accessToken);
       console.log("Log in successful");
       navigation.navigate('App');
     } catch (e) {

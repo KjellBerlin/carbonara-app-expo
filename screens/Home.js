@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block } from 'galio-framework';
+import { Block, Text } from 'galio-framework';
 
 import { Card } from "../components";
 import { nowTheme } from '../constants';
@@ -23,6 +23,13 @@ export const Product = () => {
   const {loading, data} = useQuery(PRODUCT_QUERY, { fetchPolicy: "cache-and-network" })
   if (loading) {
     return <Loading />
+  }
+  if (data == null) {
+    return (
+      <Block>
+        <Text>Error loading product data</Text>
+      </Block>
+    );
   }
   return (
     <Block>
