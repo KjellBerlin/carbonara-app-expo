@@ -1,17 +1,16 @@
 import { Block, theme } from 'galio-framework';
-import { Image, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { DrawerItem as DrawerCustomItem, Icon } from '../components';
 
-import Images from '../constants/Images';
 import React from 'react';
 
 function CustomDrawerContent({ navigation, state }) {
   // TODO: Remove OrderScreen from screens
-  const screens = ['Home', 'Components', 'Account', 'Order'];
+  // Definition of screens in sidebar
+  const screens = ['Home', 'Components', 'Account'];
   return (
     <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
       <Block style={styles.header}>
-        <Image style={styles.logo} source={Images.Logo} />
         <Block right style={styles.headerIcon}>
           <Icon name="align-left-22x" family="NowExtra" size={15} color={'black'} />
         </Block>

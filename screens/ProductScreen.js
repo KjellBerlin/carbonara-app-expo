@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, Text } from 'galio-framework';
 
-import { Card } from "../components";
 import { nowTheme } from '../constants';
 import { gql, useQuery } from '@apollo/client';
 import Loading from '../components/Loading';
+import ProductCard from '../components/ProductCard';
 const { width } = Dimensions.get("screen");
 
 const PRODUCT_QUERY = gql`
@@ -33,7 +33,7 @@ export const Product = () => {
   }
   return (
     <Block>
-      <Card key={0} item={data.activeProduct} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'cover' } }/>
+      <ProductCard key={0} item={data.activeProduct} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'cover' } }/>
     </Block>
   );
 };

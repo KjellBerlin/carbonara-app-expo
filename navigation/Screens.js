@@ -49,11 +49,11 @@ function OrderStack() {
       }}
     >
       <Stack.Screen
-        name="Order"
+        name="OrderScreen"
         component={OrderScreen}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="OrderScreen" search options navigation={navigation} scene={scene} />
+            <Header title="Order" search options navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: '#FFFFFF' },
         }}
@@ -141,21 +141,21 @@ function AppStack() {
       initialRouteName="ProductScreen"
     >
       <Drawer.Screen
-        name="Home"
+        name="ProductScreen"
         component={HomeStack}
         options={{
           headerShown: false,
         }}
       />
       <Drawer.Screen
-        name="Order"
+        name="OrderScreen"
         component={OrderStack}
         options={{
           headerShown: false,
         }}
       />
       <Drawer.Screen
-        name="Components"
+        name="ComponentScreen"
         component={ComponentsStack}
         options={{
           headerShown: false,

@@ -6,7 +6,6 @@ import { Block, Text, theme } from 'galio-framework';
 
 import { nowTheme } from '../constants';
 import { Button } from './index';
-import * as navigation from '@react-navigation/compat/src/helpers';
 
 const { width } = Dimensions.get('screen');
 
@@ -18,7 +17,8 @@ class ProductCard extends React.Component {
       horizontal,
       full,
       style,
-      imageStyle
+      imageStyle,
+      navigation // Get the navigation prop
     } = this.props;
 
     const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
@@ -34,62 +34,57 @@ class ProductCard extends React.Component {
         <Block flex style={imgContainer}>
           <Image resizeMode="cover" source={{ uri: item.productPictureUrl }} style={imageStyles} />
         </Block>
-          <Block flex space="between" style={styles.cardDescription}>
+        <Block flex space="between" style={styles.cardDescription}>
+          <Block flex center>
+            <Text
+              size={18}
+              style={{
+                fontFamily: 'montserrat-bold',
+                marginBottom: theme.SIZES.BASE,
+                marginTop: theme.SIZES.BASE /2
+              }}
+              color={nowTheme.COLORS.PRIMARY}
+            >
+              {item.productPrice/100} €
+            </Text>
+
             <Block flex center>
               <Text
-                size={18}
+                h6
                 style={{
-                  fontFamily: 'montserrat-bold',
-                  marginBottom: theme.SIZES.BASE,
-                  marginTop: theme.SIZES.BASE /2
-              }}
-                color={nowTheme.COLORS.PRIMARY}
+                  fontFamily: 'next-sphere-black',
+                  marginBottom: theme.SIZES.BASE / 2
+                }}
+                color={nowTheme.COLORS.HEADER}
               >
-                {item.productPrice/100} €
+                {item.productName}
               </Text>
-              {item.productName ? (
-                <Block flex center>
-                  <Text
-                    h6
-                    style={{
-                      fontFamily: 'next-sphere-black',
-                      marginBottom: theme.SIZES.BASE / 2
-                  }}
-                    color={nowTheme.COLORS.HEADER}
-                  >
-                    {item.productName}
-                  </Text>
-                </Block>
-              ) : (
-                  <Block />
-                )}
-              {item.productName ? (
-                <Block flex center>
-                  <Text
-                    style={{
-                      fontFamily: 'montserrat-regular',
-                      textAlign: 'center',
-                      padding: 15,
-                      lineHeight: 14
-                  }}
-                    size={14}
-                    color={nowTheme.COLORS.DEFAULT}
-                  >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  </Text>
-                </Block>
-              ) : (
-                  <Block />
-                )}
             </Block>
-            <Button
-              textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
-              style={styles.button}
-              onPress={() => navigation.navigate('Pro')}
-            >
-              Order
-            </Button>
+
+            <Block flex center>
+              <Text
+                style={{
+                  fontFamily: 'montserrat-regular',
+                  textAlign: 'center',
+                  padding: 15,
+                  lineHeight: 14
+                }}
+                size={14}
+                color={nowTheme.COLORS.DEFAULT}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+              </Text>
+            </Block>
+
           </Block>
+          <Button
+            textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
+            style={styles.button}
+            onPress={() => navigation.navigate('OrderScreen')} // Use this.props.navigation.navigate
+          >
+            Order
+          </Button>
+        </Block>
       </Block>
     );
   }
@@ -103,7 +98,8 @@ ProductCard.propTypes = {
   imageStyle: PropTypes.any,
   ctaRight: PropTypes.bool,
   titleStyle: PropTypes.any,
-  textBodyStyle: PropTypes.any
+  textBodyStyle: PropTypes.any,
+  navigation: PropTypes.object // Add navigation to prop types
 };
 
 const styles = StyleSheet.create({
