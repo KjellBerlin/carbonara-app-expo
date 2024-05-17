@@ -79,8 +79,8 @@ const DrawerItem = ({ title, focused, navigation }) => {
       style={{ height: 60 }}
       onPress={() => {
         if (title === 'LOGOUT') {
-          onLogout().then(() =>
-          navigation.navigate('Home')) // Navigate to ProductScreen when log out not successful
+          onLogout().then(r =>
+          navigation.navigate('Home')) // Navigate to Home when log out not successful
         } else {
           navigation.navigate(title)
         }

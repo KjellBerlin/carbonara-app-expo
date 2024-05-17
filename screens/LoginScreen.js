@@ -57,8 +57,6 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: nowTheme.COLORS.BLACK,
@@ -86,3 +84,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0,
   }
 });
+
+export default LoginScreen;
