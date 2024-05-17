@@ -8,7 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 
 const { width, height } = Dimensions.get('screen');
 
-const Onboarding = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   const { authorize, user } = useAuth0();
   const loggedIn = user !== undefined && user !== null;
 
@@ -57,7 +57,7 @@ const Onboarding = ({ navigation }) => {
   );
 };
 
-export default Onboarding;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {

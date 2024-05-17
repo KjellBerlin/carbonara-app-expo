@@ -1,6 +1,6 @@
 const COLORS = {
   DEFAULT: '#888888',
-  PRIMARY: '#f96332',
+  PRIMARY: '#6B24AA',
   LABEL: '#FE2472',
   INFO: '#2CA8FF',
   ERROR: '#FF3636',
@@ -43,6 +43,9 @@ const COLORS = {
   REDDIT: '#ff4500',
   GOOGLE: '#dd4b39'
 };
+
+// #6B24AA
+// #7842F6
 
 const SIZES = {
   BASE: 16,

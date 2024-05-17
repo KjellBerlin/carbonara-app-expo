@@ -6,7 +6,8 @@ import Images from '../constants/Images';
 import React from 'react';
 
 function CustomDrawerContent({ navigation, state }) {
-  const screens = ['Home', 'Components', 'Account'];
+  // TODO: Remove OrderScreen from screens
+  const screens = ['Home', 'Components', 'Account', 'Order'];
   return (
     <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
       <Block style={styles.header}>

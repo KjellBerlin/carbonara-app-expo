@@ -2,21 +2,22 @@ import { Dimensions } from 'react-native';
 import { Header } from '../components';
 import { nowTheme } from '../constants';
 
-import Components from '../screens/Components';
+import ComponentScreen from '../screens/ComponentScreen';
 import CustomDrawerContent from './Menu';
-import Home from '../screens/Home';
-import Onboarding from '../screens/Onboarding';
+import ProductScreen from '../screens/ProductScreen';
+import LoginScreen from '../screens/LoginScreen';
 import React from 'react';
 import Register from '../screens/Register';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
+import OrderScreen from '../screens/OrderScreen';
 
 const { width } = Dimensions.get('screen');
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function HomeStack(props) {
+function HomeStack() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -26,10 +27,10 @@ function HomeStack(props) {
     >
       <Stack.Screen
         name="Home"
-        component={Home}
+        component={ProductScreen}
         options={{
           header: ({ navigation, scene }) => (
-            <Header title="Home" search options navigation={navigation} scene={scene} />
+            <Header title="Home" addressSearchHeader heyHeader navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: '#FFFFFF' },
         }}
@@ -38,10 +39,34 @@ function HomeStack(props) {
   );
 }
 
-function ComponentsStack(props) {
+// TODO: Remove only for testing purposes
+function OrderStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Components"
+      screenOptions={{
+        mode: 'card',
+        headerShown: 'screen',
+      }}
+    >
+      <Stack.Screen
+        name="Order"
+        component={OrderScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="OrderScreen" search options navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+// TODO: Hide in production
+function ComponentsStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="ComponentScreen"
       screenOptions={{
         mode: 'card',
         headerShown: 'screen',
@@ -49,7 +74,7 @@ function ComponentsStack(props) {
     >
       <Stack.Screen
         name="Components"
-        component={Components}
+        component={ComponentScreen}
         options={{
           header: ({ navigation, scene }) => (
             <Header title="Components" navigation={navigation} scene={scene} />
@@ -61,7 +86,7 @@ function ComponentsStack(props) {
   );
 }
 
-function AccountStack(props) {
+function AccountStack() {
   return (
     <Stack.Navigator
       initialRouteName="Account"
@@ -84,7 +109,7 @@ function AccountStack(props) {
   );
 }
 
-function AppStack(props) {
+function AppStack() {
   return (
     <Drawer.Navigator
       style={{ flex: 1 }}
@@ -113,11 +138,18 @@ function AppStack(props) {
           fontWeight: 'normal',
         },
       }}
-      initialRouteName="Home"
+      initialRouteName="ProductScreen"
     >
       <Drawer.Screen
         name="Home"
         component={HomeStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="Order"
+        component={OrderStack}
         options={{
           headerShown: false,
         }}
@@ -140,7 +172,7 @@ function AppStack(props) {
   );
 }
 
-export default function OnboardingStack(props) {
+export default function OnboardingStack() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -149,8 +181,8 @@ export default function OnboardingStack(props) {
       }}
     >
       <Stack.Screen
-        name="Onboarding"
-        component={Onboarding}
+        name="LoginScreen"
+        component={LoginScreen}
         option={{
           headerTransparent: true,
         }}

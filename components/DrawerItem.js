@@ -5,7 +5,7 @@ import Icon from './Icon';
 import React from 'react';
 import nowTheme from '../constants/Theme';
 import { useAuth0 } from 'react-native-auth0';
-import Onboarding from '../screens/Onboarding';
+import LoginScreen from '../screens/LoginScreen';
 
 const DrawerItem = ({ title, focused, navigation }) => {
 
@@ -21,6 +21,7 @@ const DrawerItem = ({ title, focused, navigation }) => {
             style={{ opacity: 0.5 }}
           />
         );
+        // TODO: Hide in production
       case 'Components':
         return (
           <Icon
@@ -66,7 +67,7 @@ const DrawerItem = ({ title, focused, navigation }) => {
   const onLogout = async () => {
     try {
       await clearSession();
-      navigation.navigate(title === 'LOGOUT' ? 'Onboarding' : title)
+      navigation.navigate(title === 'LOGOUT' ? 'LoginScreen' : title)
       console.log('Log out successful')
     } catch (e) {
       console.log('Log out cancelled');
@@ -78,8 +79,8 @@ const DrawerItem = ({ title, focused, navigation }) => {
       style={{ height: 60 }}
       onPress={() => {
         if (title === 'LOGOUT') {
-          onLogout().then(r =>
-          navigation.navigate('Home')) // Navigate to Home when log out not successful
+          onLogout().then(() =>
+          navigation.navigate('Home')) // Navigate to ProductScreen when log out not successful
         } else {
           navigation.navigate(title)
         }
@@ -96,7 +97,7 @@ const DrawerItem = ({ title, focused, navigation }) => {
               textTransform: 'uppercase'
             }}
             size={12}
-            bold={focused ? true : false}
+            bold={!!focused}
             color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
           >
             {title}
