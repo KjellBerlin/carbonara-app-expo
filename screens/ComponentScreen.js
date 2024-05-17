@@ -17,7 +17,7 @@ const { width } = Dimensions.get('screen');
 
 const thumbMeasure = (width - 48 - 32) / 3;
 
-class Components extends React.Component {
+class ComponentScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -533,4 +533,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Components;
+export default ComponentScreen;

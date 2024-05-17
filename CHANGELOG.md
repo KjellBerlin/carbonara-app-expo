@@ -71,7 +71,7 @@
 ### Updated files
 
 - App.js - removed `packagerOpts` which solved Expo failed loading
-- Components.js - fixed layout for ScrollView, Horizontal Gallery and Select positioning
+- ComponentScreen.js - fixed layout for ScrollView, Horizontal Gallery and Select positioning
 - Header.js - fixed search input autofocusing and creating an error where the back button wouldn't work anymore keeping the user in a loop
 
 ## [1.2.0] 2020 - 06 - 20
@@ -99,7 +99,7 @@
 - change function for fontLoading in `App.js`, this should fix the often occurrence of the error
 - moved `assets/font/now.json` to `assets/config/now.json` in order to make sure there wouldn't be any issue with the build for Android
 - edited `Header.js` in order to fix the Pro routing error
-- edited `Screens.js` and fixed the headerless Components Screen
+- edited `Screens.js` and fixed the headerless ComponentScreen Screen
 
 ## [1.1.0] 2020 - 03 - 12
 
@@ -131,7 +131,7 @@
 - changed the whole routing from `Screens.js` because `react-navigation@5.0.0` has a new dynamic API
 - changed `Menu.js` for a new Drawer custom component
 - changed `DrawerItem.js` for a new type of `<DrawerCustomItem />`
-- changed props and variables so that the new `react-navigation` API could work with the following files: `Header.js`, `Pro.js`, `Settings.js`, `Search.js`, `Cart.js`, 'ProductCard.js`, `Onboarding.js`
+- changed props and variables so that the new `react-navigation` API could work with the following files: `Header.js`, `Pro.js`, `Settings.js`, `Search.js`, `Cart.js`, 'ProductCard.js`, `LoginScreen.js`
 
 ## [1.0.1] 2019-11-12
 

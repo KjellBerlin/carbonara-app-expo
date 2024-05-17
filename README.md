@@ -16,7 +16,7 @@ Now UI React Native features over 200 variations of components like buttons, inp
 
 You will save a lot of time going from prototyping to full-functional code, because all elements are implemented. We wanted the design process to be seamless, so switching from image to the real page is very easy to do.
 
-### Components & Cards
+### ComponentScreen & Cards
 Now UI React Native comes packed with a large number of components and cards. Putting together a mobile app has never been easier than matching together different components. From the profile screen to a settings screen, you can easily customise and build your screens. We have created multiple options for you to put together and customise into pixel perfect screens.
 
 View [ all components/cards here](https://demos.creative-tim.com/now-ui-react-native/index.html#cards).
@@ -58,9 +58,9 @@ Let us know your thoughts below. And good luck with development!
 
 ## Demo
 
-| Home Screen | Profile Screen | Elements Screen | Register Screen |
+| ProductScreen Screen | Profile Screen | Elements Screen | Register Screen |
 | --- | --- | --- | --- |
-| [![Home Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/home-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Profile Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/profile-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Elements Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/elements-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Register Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/register-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) |
+| [![ProductScreen Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/home-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Profile Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/profile-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Elements Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/elements-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Register Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/register-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) |
 
 - [Start page](https://demos.creative-tim.com/now-ui-react-native)
 - [How to install our free demo](https://demos.creative-tim.com/now-ui-react-native/docs/#/install)
@@ -126,9 +126,9 @@ now-ui-react-native/
 ├── package.json
 └── screens/
     ├── Articles.js
-    ├── Components.js
-    ├── Home.js
-    ├── Onboarding.js
+    ├── ComponentScreen.js
+    ├── ProductScreen.js
+    ├── LoginScreen.js
     ├── Pro.js
     ├── Profile.js
     ├── Register.js

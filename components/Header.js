@@ -106,12 +106,12 @@ class Header extends React.Component {
   }
 
   renderHeader = () => {
-    const { search, options, tabs } = this.props;
-    if (search || tabs || options) {
+    const { addressSearchHeader, heyHeader, tabs } = this.props;
+    if (addressSearchHeader || tabs || heyHeader) {
       return (
         <Block left style={styles.heySearch}>
           {this.renderHeyUser()}
-          {search ? this.googlePlacesInput() : null}
+          {addressSearchHeader ? this.googlePlacesInput() : null}
         </Block>
       );
     }

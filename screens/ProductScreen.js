@@ -38,7 +38,7 @@ export const Product = () => {
   );
 };
 
-class Home extends React.Component {
+class ProductScreen extends React.Component {
 
   renderCards = () => {
     return (
@@ -75,4 +75,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Home;
+export default ProductScreen;
