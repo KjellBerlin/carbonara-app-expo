@@ -20,6 +20,7 @@ const Drawer = createDrawerNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator
+      initialRouterName="ProductScreen"
       screenOptions={{
         mode: 'card',
         headerShown: 'screen',
@@ -39,17 +40,17 @@ function HomeStack() {
   );
 }
 
-// TODO: Remove only for testing purposes
 function OrderStack() {
   return (
     <Stack.Navigator
+      initialRouteName="OrderScreen"
       screenOptions={{
         mode: 'card',
         headerShown: 'screen',
       }}
     >
       <Stack.Screen
-        name="OrderScreen"
+        name="Order"
         component={OrderScreen}
         options={{
           header: ({ navigation, scene }) => (
@@ -62,7 +63,6 @@ function OrderStack() {
   );
 }
 
-// TODO: Hide in production
 function ComponentsStack() {
   return (
     <Stack.Navigator
@@ -89,7 +89,7 @@ function ComponentsStack() {
 function AccountStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Account"
+      initialRouteName="AccountScreen"
       screenOptions={{
         mode: 'card',
         headerShown: 'screen',
@@ -155,7 +155,7 @@ function AppStack() {
         }}
       />
       <Drawer.Screen
-        name="ComponentScreen"
+        name="Components"
         component={ComponentsStack}
         options={{
           headerShown: false,

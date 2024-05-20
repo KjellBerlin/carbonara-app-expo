@@ -13,9 +13,10 @@ class ProductCard extends React.Component {
 
   render() {
     const {
-      item,
+      product,
       horizontal,
       style,
+      navigation
     } = this.props;
 
     const cardContainer = [styles.card, styles.shadow, style];
@@ -29,7 +30,7 @@ class ProductCard extends React.Component {
       <Block card flex style={cardContainer}>
         <Block row>
           <Block style={imgContainer}>
-            <Image source={{ uri: item.productPictureUrl }} style={styles.imageStyles} />
+            <Image source={{ uri: product.productPictureUrl }} style={styles.imageStyles} />
           </Block>
 
           <Block flex style={styles.textContainer}>
@@ -41,7 +42,7 @@ class ProductCard extends React.Component {
               }}
               color={nowTheme.COLORS.HEADER}
             >
-              {item.productName}
+              {product.productName}
             </Text>
 
             <Block flex left>
@@ -67,7 +68,7 @@ class ProductCard extends React.Component {
               }}
               color={nowTheme.COLORS.PRIMARY}
             >
-              {item.productPrice / 100} €
+              {product.productPrice / 100} €
             </Text>
 
           </Block>
@@ -85,6 +86,9 @@ class ProductCard extends React.Component {
                   center
                   color="default"
                   style={styles.optionsButton}
+                  onPress={() => {
+                    navigation.navigate('ProductScreen')}
+                  }
                 >
                   DELETE
                 </Button>
@@ -98,7 +102,7 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  item: PropTypes.object,
+  product: PropTypes.object,
   horizontal: PropTypes.bool,
   full: PropTypes.bool,
   ctaColor: PropTypes.string,
@@ -165,4 +169,3 @@ const styles = StyleSheet.create({
 });
 
 export default withNavigation(ProductCard);
-

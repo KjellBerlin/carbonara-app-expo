@@ -13,7 +13,7 @@ class ProductCard extends React.Component {
 
   render() {
     const {
-      item,
+      product,
       horizontal,
       full,
       style,
@@ -32,7 +32,7 @@ class ProductCard extends React.Component {
     return (
       <Block row={horizontal} card flex style={cardContainer}>
         <Block flex style={imgContainer}>
-          <Image resizeMode="cover" source={{ uri: item.productPictureUrl }} style={imageStyles} />
+          <Image resizeMode="cover" source={{ uri: product.productPictureUrl }} style={imageStyles} />
         </Block>
         <Block flex space="between" style={styles.cardDescription}>
           <Block flex center>
@@ -45,7 +45,7 @@ class ProductCard extends React.Component {
               }}
               color={nowTheme.COLORS.PRIMARY}
             >
-              {item.productPrice/100} €
+              {product.productPrice / 100} €
             </Text>
 
             <Block flex center>
@@ -57,7 +57,7 @@ class ProductCard extends React.Component {
                 }}
                 color={nowTheme.COLORS.HEADER}
               >
-                {item.productName}
+                {product.productName}
               </Text>
             </Block>
 
@@ -80,7 +80,9 @@ class ProductCard extends React.Component {
           <Button
             textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
             style={styles.button}
-            onPress={() => navigation.navigate('OrderScreen')} // Use this.props.navigation.navigate
+            onPress={() => {
+              navigation.navigate('OrderScreen')
+            }}
           >
             Order
           </Button>
@@ -91,7 +93,7 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  item: PropTypes.object,
+  product: PropTypes.object,
   horizontal: PropTypes.bool,
   full: PropTypes.bool,
   ctaColor: PropTypes.string,
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   button: {
-    marginTop: theme.SIZES.BASE*1.2,
+    marginTop: theme.SIZES.BASE * 1.2,
     marginBottom: theme.SIZES.BASE,
     width: width - theme.SIZES.BASE * 2,
   },
