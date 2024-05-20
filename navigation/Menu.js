@@ -5,8 +5,8 @@ import { DrawerItem as DrawerCustomItem, Icon } from '../components';
 import React from 'react';
 
 function CustomDrawerContent({ navigation, state }) {
-  // TODO: Remove OrderScreen from screens
   // Definition of screens in sidebar
+  // TODO: Remove Components screen
   const screens = ['Home', 'Components', 'Account'];
   return (
     <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>

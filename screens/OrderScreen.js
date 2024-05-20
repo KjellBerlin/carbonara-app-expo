@@ -1,69 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block, Text } from 'galio-framework';
-
+import { Block } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { gql, useQuery } from '@apollo/client';
-import Loading from '../components/Loading';
 import OrderCard from '../components/OrderCard';
+import { GlobalContext } from '../GlobalContext'; // Import the GlobalContext
+
 const { width } = Dimensions.get("screen");
 
-// TODO: get data via props
+const OrderScreen = () => {
+  const { state } = useContext(GlobalContext); // Use the context to get the product
+  const { product } = state;
 
-const PRODUCT_QUERY = gql`
-    query MEALS{
-      activeProduct{
-        productId,
-        productPrice,
-        productName,
-        productPictureUrl
-      }
-    }
-`
-
-export const Product = () => {
-  const {loading, data} = useQuery(PRODUCT_QUERY, { fetchPolicy: "cache-and-network" })
-  if (loading) {
-    return <Loading />
-  }
-  if (data == null) {
-    return (
-      <Block>
-        <Text>Error loading product data</Text>
-      </Block>
-    );
-  }
-  return (
-    <Block>
-      <OrderCard key={0} item={data.activeProduct} full titleStyle={styles.productTitle} imageStyle={ { height: 300, width: '100%', resizeMode: 'cover' } }/>
-    </Block>
-  );
-};
-
-class OrderScreen extends React.Component {
-
-  renderCards = () => {
+  const renderCards = () => {
     return (
       <Block flex style={styles.group}>
-        <Product/>
+        <OrderCard key={0} product={product} full titleStyle={styles.productTitle} imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }} />
       </Block>
-
     );
   };
 
-  render() {
-    return (
-      <Block flex center style={styles.home}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 30, width }}
-        >
-          {this.renderCards()}
-        </ScrollView>
-      </Block>
-    );
-  }
-}
+  return (
+    <Block flex center style={styles.home}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 30, width }}
+      >
+        {renderCards()}
+      </ScrollView>
+    </Block>
+  );
+};
 
 const styles = StyleSheet.create({
   home: {
@@ -78,3 +44,4 @@ const styles = StyleSheet.create({
 });
 
 export default OrderScreen;
+

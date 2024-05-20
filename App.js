@@ -13,6 +13,8 @@ import { Auth0Provider } from 'react-native-auth0';
 import { setContext } from '@apollo/client/link/context';
 import * as SecureStore from 'expo-secure-store';
 
+import { GlobalProvider } from './GlobalContext'; // Import the GlobalProvider
+
 // cache app images
 const assetImages = [
   Images.RegisterBackground
@@ -66,13 +68,15 @@ export default class App extends React.Component {
       return (
         <Auth0Provider domain={"dev-yntwqm72gdl58ssy.us.auth0.com"} clientId={"df43s61p15MI3pp7UoBPV0tEQ0DA6dIc"}>
           <ApolloProvider client={client}>
-            <NavigationContainer>
-              <GalioProvider theme={nowTheme}>
-                <Block flex>
-                  <Screens />
-                </Block>
-              </GalioProvider>
-            </NavigationContainer>
+            <GlobalProvider>
+              <NavigationContainer>
+                <GalioProvider theme={nowTheme}>
+                  <Block flex>
+                    <Screens />
+                  </Block>
+                </GalioProvider>
+              </NavigationContainer>
+            </GlobalProvider>
           </ApolloProvider>
         </Auth0Provider>
       );
@@ -101,3 +105,4 @@ export default class App extends React.Component {
     }
   };
 }
+

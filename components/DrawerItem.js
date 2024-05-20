@@ -21,7 +21,6 @@ const DrawerItem = ({ title, focused, navigation }) => {
             style={{ opacity: 0.5 }}
           />
         );
-        // TODO: Hide in production
       case 'Components':
         return (
           <Icon
