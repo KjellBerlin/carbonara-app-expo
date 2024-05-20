@@ -27,7 +27,7 @@
     "expo-build-properties": "~0.11.1",
     "expo-font": "~11.10.3",
     "expo-modules-autolinking": "^1.10.3",
-    "expo-secure-store": "^12.8.1",
+    "expo-secure-store": "^13.0.1",
     "expo-status-bar": "~1.11.1",
     "galio-framework": "0.8.0",
     "graphql": "^16.8.1",
