@@ -29,15 +29,11 @@ class ProductCard extends React.Component {
     return (
       <Block card flex style={cardContainer}>
         <Block row>
-          <Block style={imgContainer}>
-            <Image source={{ uri: product.productPictureUrl }} style={styles.imageStyles} />
-          </Block>
-
           <Block flex style={styles.textContainer}>
             <Text
               style={{
                 fontFamily: 'next-sphere-black',
-                fontSize: 20,
+                fontSize: 18,
                 marginBottom: theme.SIZES.BASE / 2
               }}
               color={nowTheme.COLORS.HEADER}
@@ -70,7 +66,10 @@ class ProductCard extends React.Component {
             >
               {product.productPrice / 100} €
             </Text>
+          </Block>
 
+          <Block style={imgContainer}>
+            <Image source={{ uri: product.productPictureUrl }} style={styles.imageStyles} />
           </Block>
         </Block>
         <Block flex>
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
     borderWidth: 0,
     minHeight: 114,
-    marginBottom: 20
+    marginBottom: 10
   },
   cardDescription: {
     padding: theme.SIZES.BASE / 2
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
   imageStyles: {
     width: width / 3.5,
     height: width / 3.5,
-    marginLeft: 23,
+    marginRight: 24,
     marginTop: 20,
     marginBottom: 10,
     borderRadius: 3,
@@ -164,8 +163,9 @@ const styles = StyleSheet.create({
   textContainer: {
     marginTop: 23,
     marginLeft: 20,
-    marginRight: 23
+    marginRight: 0
   }
 });
 
 export default withNavigation(ProductCard);
+

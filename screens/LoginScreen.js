@@ -1,21 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { StyleSheet, StatusBar, Dimensions, Platform, View } from 'react-native';
 import { Block, Text, Button } from 'galio-framework';
 import { nowTheme } from '../constants/';
 import { HeaderHeight } from '../constants/utils';
 import { useAuth0 } from 'react-native-auth0';
 import * as SecureStore from 'expo-secure-store';
+import { GlobalContext } from '../GlobalContext';
 
 const { width, height } = Dimensions.get('screen');
 
 const LoginScreen = ({ navigation }) => {
   const { authorize, user } = useAuth0();
   const loggedIn = user !== undefined && user !== null;
+  const { updateAddress } = useContext(GlobalContext); // Destructure setAddress from context
 
   useEffect(() => {
       if (loggedIn === true) navigation.navigate('App');
     },
-    [loggedIn, navigation] // Adding dependencies for useEffect
+    [loggedIn, navigation]
   );
 
   const onLogin = async () => {
@@ -26,7 +28,7 @@ const LoginScreen = ({ navigation }) => {
       });
       await SecureStore.setItemAsync('jwt_token', credentials.accessToken);
       console.log("Log in successful");
-      // console.log(credentials.accessToken)
+      updateAddress(null); // Set address to null in globalContext
       navigation.navigate('App');
     } catch (e) {
       console.log(e);
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     fontFamily: 'next-sphere-black',
     letterSpacing: 2,
     textAlign: 'center',
-    marginBottom: nowTheme.SIZES.BASE, // Adjust as needed
+    marginBottom: nowTheme.SIZES.BASE,
   },
   buttonText: {
     fontFamily: 'next-sphere-black',

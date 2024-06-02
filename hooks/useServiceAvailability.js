@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
+import { useState, useContext } from 'react';
+import { useLazyQuery, gql } from '@apollo/client';
+import { GlobalContext } from '../GlobalContext';
 
 const SERVICE_AVAILABILITY_QUERY = gql`
     query SERVICE_AVAILABILITY($googlePlaceId: String!) {
@@ -20,12 +21,17 @@ const SERVICE_AVAILABILITY_QUERY = gql`
 const useServiceAvailability = () => {
   const [googlePlaceId, setGooglePlaceId] = useState('');
   const [serviceAvailability, setServiceAvailability] = useState(null);
+  const { updateAddress } = useContext(GlobalContext);
 
-  const [fetchServiceAvailability, { loading, data, error }] = useLazyQuery(SERVICE_AVAILABILITY_QUERY, {
+  const [fetchServiceAvailability, { loading, error }] = useLazyQuery(SERVICE_AVAILABILITY_QUERY, {
     variables: { googlePlaceId },
     fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
       setServiceAvailability(data.serviceAvailability);
+
+      if (data.serviceAvailability.available && data.serviceAvailability.address) {
+        updateAddress(data.serviceAvailability.address);
+      }
     }
   });
 
@@ -46,3 +52,4 @@ const useServiceAvailability = () => {
 };
 
 export default useServiceAvailability;
+
