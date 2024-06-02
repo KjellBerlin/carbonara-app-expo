@@ -2,10 +2,11 @@ import React from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Block, NavBar, Text, theme } from 'galio-framework';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 import Icon from './Icon';
 import nowTheme from '../constants/Theme';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import useServiceAvailability from '../hooks/useServiceAvailability';
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () =>
@@ -22,64 +23,65 @@ const BellButton = ({ isWhite, style, navigation }) => (
       name="bulb"
       color={nowTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
-
   </TouchableOpacity>
 );
 
-class Header extends React.Component {
-  handleLeftPress = () => {
-    const { back, navigation } = this.props;
+const Header = (props) => {
+  const { serviceAvailability, loading, error, handleAddressSelect } = useServiceAvailability();
+
+  const handleLeftPress = () => {
+    const { back, navigation } = props;
     return back ? navigation.goBack() : navigation.openDrawer();
   };
-  renderRight = () => {
-    const { white, title, navigation } = this.props;
-    // TODO: Navigate to about page
-    if (title === 'Title') {
-      return [
-        <BellButton key="chat-title" navigation={navigation} isWhite={white} />,
-      ];
-    }
 
+  const renderRight = () => {
+    const { white, title, navigation } = props;
+    if (title === 'Title') {
+      return [<BellButton key="chat-title" navigation={navigation} isWhite={white} />];
+    }
     switch (title) {
       case 'Home':
-        return [
-          <BellButton key="chat-home" navigation={navigation} isWhite={white} />,
-        ];
+        return [<BellButton key="chat-home" navigation={navigation} isWhite={white} />];
       case 'Account':
-        return [
-          <BellButton key="chat-profile" navigation={navigation} />,
-        ];
+        return [<BellButton key="chat-profile" navigation={navigation} />];
       default:
         break;
     }
   };
 
-  googlePlacesInput = () => {
+  const googlePlacesInput = () => {
     return (
-      <Block style={{width: width*0.92, height: 55, marginTop: 8}}>
+      <Block style={{ width: width * 0.92, height: 43, marginTop: 4, zIndex: 999 }}>
         <GooglePlacesAutocomplete
-          placeholder='Where do you live?'
-          onPress={(data, details = null) => {
-            // 'details' is provided when fetchDetails = true
-            // TODO: check address with own BE service, if in delivery area
-            console.log(data, details);
-          }}
+          placeholder="Where do you live?"
+          onPress={handleAddressSelect}
           query={{
             key: 'AIzaSyBUNIqACbeX2VTDaUZC_1ZsCSMPL6MK2DI',
             language: 'en',
-            components: 'country:de'
+            components: 'country:de',
           }}
           styles={{
+            container: {
+              position: 'absolute',
+              zIndex: 999,
+              width: '100%',
+            },
             textInputContainer: {
               borderRadius: 5,
               borderWidth: 0.8,
               borderColor: nowTheme.COLORS.DEFAULT,
+              paddingTop: 4,
+              paddingBottom: 4,
+              height: 36,
+              justifyContent: 'center', // Center the text vertically
             },
             textInput: {
-              height: 36,
-              color: nowTheme.COLORS.HEADER,
-              fontSize: 15,
+              height: '100%', // Ensure textInput takes the full height of textInputContainer
+              color: nowTheme.COLORS.DEFAULT,
+              fontSize: 14,
               fontFamily: 'montserrat-regular',
+              paddingTop: 0,
+              paddingBottom: 0,
             },
             listView: {
               position: 'absolute',
@@ -87,7 +89,18 @@ class Header extends React.Component {
               backgroundColor: 'white',
               zIndex: 1000,
               flexDirection: 'row',
-              flexWrap: 'wrap'
+              flexWrap: 'wrap',
+            },
+            row: {
+              backgroundColor: 'white',
+              padding: 13,
+              height: 44,
+              flexDirection: 'row',
+            },
+            description: {
+              fontFamily: 'montserrat-regular',
+              fontSize: 14,
+              color: nowTheme.COLORS.DEFAULT,
             },
           }}
         />
@@ -95,97 +108,122 @@ class Header extends React.Component {
     );
   };
 
-  renderHeyUser = () => {
+  const renderHeyUser = () => {
+    // TODO: Use actual user name
     return (
       <Block>
-        <Text style={styles.hey}>
-          HEY KJELL
-        </Text>
+        <Text style={styles.hey}>HEY KJELL</Text>
       </Block>
-    )
-  }
+    );
+  };
 
-  renderHeader = () => {
-    const { addressSearchHeader, heyHeader, tabs } = this.props;
+  const renderServiceAvailability = () => {
+    if (loading) return <Text style={styles.serviceText}>Loading...</Text>;
+    if (error) return <Text style={styles.serviceText}>Error: {error.message}</Text>;
+    if (serviceAvailability) {
+      if (serviceAvailability.addressIncomplete) {
+        return (
+          <Block style={styles.serviceAvailability}>
+            <Text style={styles.serviceText}>
+              The address is not complete. Please provide a complete address to check delivery availability.
+            </Text>
+          </Block>
+        );
+      }
+      return (
+        <Block style={styles.serviceAvailability}>
+          <Text style={styles.serviceText}>
+            {serviceAvailability.available
+              ? 'We deliver to your location!'
+              : 'Unfortunately, we do not deliver to your location yet.'}
+          </Text>
+        </Block>
+      );
+    }
+    return null;
+  };
+
+  const renderHeader = () => {
+    const { addressSearchHeader, heyHeader, tabs } = props;
     if (addressSearchHeader || tabs || heyHeader) {
       return (
         <Block left style={styles.heySearch}>
-          {this.renderHeyUser()}
-          {addressSearchHeader ? this.googlePlacesInput() : null}
+          {renderHeyUser()}
+          {addressSearchHeader ? googlePlacesInput() : null}
+          {renderServiceAvailability()}
         </Block>
       );
     }
   };
-  render() {
-    const {
-      back,
-      title,
-      white,
-      transparent,
-      bgColor,
-      iconColor,
-      titleColor,
-      navigation,
-      ...props
-    } = this.props;
 
-    const noShadow = ['Search', 'Categories', 'Deals', 'Pro', 'Profile'].includes(title);
-    const headerStyles = [
-      !noShadow ? styles.shadow : null,
-      transparent ? { backgroundColor: 'rgba(0,0,0,0)' } : null
-    ];
+  const {
+    back,
+    title,
+    white,
+    transparent,
+    bgColor,
+    iconColor,
+    titleColor,
+    navigation,
+    ...otherProps
+  } = props;
 
-    const navbarStyles = [styles.navbar, bgColor && { backgroundColor: bgColor }];
+  const noShadow = ['Search', 'Categories', 'Deals', 'Pro', 'Profile'].includes(title);
+  const headerStyles = [
+    !noShadow ? styles.shadow : null,
+    transparent ? { backgroundColor: 'rgba(0,0,0,0)' } : null,
+  ];
 
-    return (
-      <Block style={headerStyles}>
-        <NavBar
-          back={false}
-          title={title}
-          style={navbarStyles}
-          transparent={transparent}
-          right={this.renderRight()}
-          rightStyle={{ alignItems: 'center' }}
-          left={
-            <Icon
-              name={back ? 'minimal-left2x' : 'align-left-22x'}
-              family="NowExtra"
-              size={16}
-              onPress={this.handleLeftPress}
-              color={iconColor || (white ? nowTheme.COLORS.WHITE : nowTheme.COLORS.ICON)}
-            />
-          }
-          leftStyle={{ paddingVertical: 12, flex: 0.2 }}
-          titleStyle={[
-            styles.title,
-            { color: nowTheme.COLORS[white ? 'WHITE' : 'HEADER'] },
-            titleColor && { color: titleColor }
-          ]}
-          {...props}
-        />
-        {this.renderHeader()}
-      </Block>
-    );
-  }
-}
+  const navbarStyles = [styles.navbar, bgColor && { backgroundColor: bgColor }];
+
+  return (
+    <Block style={headerStyles}>
+      <NavBar
+        back={false}
+        title={title}
+        style={navbarStyles}
+        transparent={transparent}
+        right={renderRight()}
+        rightStyle={{ alignItems: 'center' }}
+        left={
+          <Icon
+            name={back ? 'minimal-left2x' : 'align-left-22x'}
+            family="NowExtra"
+            size={16}
+            onPress={handleLeftPress}
+            color={iconColor || (white ? nowTheme.COLORS.WHITE : nowTheme.COLORS.ICON)}
+          />
+        }
+        leftStyle={{ paddingVertical: 12, flex: 0.2 }}
+        titleStyle={[
+          styles.title,
+          { color: nowTheme.COLORS[white ? 'WHITE' : 'HEADER'] },
+          titleColor && { color: titleColor },
+        ]}
+        {...otherProps}
+      />
+      {renderHeader()}
+    </Block>
+  );
+};
 
 const styles = StyleSheet.create({
   button: {
     position: 'relative',
-    paddingLeft: 39
+    paddingLeft: 39,
   },
   title: {
     width: '100%',
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'next-sphere-thin'
+    fontFamily: 'next-sphere-thin',
   },
   navbar: {
     paddingVertical: 0,
     paddingBottom: theme.SIZES.BASE * 1.5,
     paddingTop: iPhoneX ? theme.SIZES.BASE * 4 : theme.SIZES.BASE,
     zIndex: 5,
-    paddingRight: 0
+    paddingRight: 0,
   },
   shadow: {
     backgroundColor: theme.COLORS.WHITE,
@@ -193,33 +231,49 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.2,
-    elevation: 3
+    elevation: 3,
   },
   header: {
-    backgroundColor: theme.COLORS.WHITE
+    backgroundColor: theme.COLORS.WHITE,
   },
   heySearch: {
-    marginLeft: 16
+    marginLeft: 16,
+    zIndex: 1,
+    paddingBottom: 4,
   },
   search: {
     height: 48,
     width: width - 32,
     borderWidth: 1,
     borderRadius: 30,
-    borderColor: nowTheme.COLORS.BORDER
+    borderColor: nowTheme.COLORS.BORDER,
   },
   hey: {
     lineHeight: 32,
     fontSize: 24,
     fontFamily: 'next-sphere-black',
-    color: nowTheme.COLORS.HEADER
+    color: nowTheme.COLORS.HEADER,
   },
   social: {
     width: theme.SIZES.BASE * 3.5,
     height: theme.SIZES.BASE * 3.5,
     borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  serviceAvailability: {
+    paddingVertical: 4,
+    paddingRight: 12,
+    zIndex: 1,
+  },
+  serviceText: {
+    fontFamily: 'montserrat-regular',
+    textAlign: 'left',
+    padding: 0,
+    lineHeight: 14,
+    fontSize: 14,
+    color: nowTheme.COLORS.DEFAULT, // Set the text color to nowTheme.COLORS.DEFAULT
   },
 });
 
 export default withNavigation(Header);
+

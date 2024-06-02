@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../carbonara-app-expo/.idea/carbonara-app-expo.iml" filepath="$PROJECT_DIR$/../carbonara-app-expo/.idea/carbonara-app-expo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/carbonara-app-expo.iml" filepath="$PROJECT_DIR$/.idea/carbonara-app-expo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hooks/hooks.iml" filepath="$PROJECT_DIR$/hooks/hooks.iml" />
     </modules>
   </component>
 </project>
