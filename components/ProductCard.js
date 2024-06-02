@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
 import { StyleSheet, Image, Dimensions } from 'react-native';
@@ -6,91 +6,116 @@ import { Block, Text, theme } from 'galio-framework';
 
 import { nowTheme } from '../constants';
 import { Button } from './index';
+import { GlobalContext } from '../GlobalContext';
 
 const { width } = Dimensions.get('screen');
 
-class ProductCard extends React.Component {
+const ProductCard = (props) => {
+  const {
+    product,
+    horizontal,
+    full,
+    style,
+    imageStyle,
+    navigation // Get the navigation prop
+  } = props;
 
-  render() {
-    const {
-      product,
-      horizontal,
-      full,
-      style,
-      imageStyle,
-      navigation // Get the navigation prop
-    } = this.props;
+  const { state } = useContext(GlobalContext);
+  const { address } = state;
+  const [showError, setShowError] = useState(false);
 
-    const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
-    const cardContainer = [styles.card, styles.shadow, style];
-    const imgContainer = [
-      styles.imageContainer,
-      horizontal ? styles.horizontalStyles : styles.verticalStyles,
-      styles.shadow
-    ];
+  const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
+  const cardContainer = [styles.card, styles.shadow, style];
+  const imgContainer = [
+    styles.imageContainer,
+    horizontal ? styles.horizontalStyles : styles.verticalStyles,
+    styles.shadow
+  ];
 
-    return (
-      <Block row={horizontal} card flex style={cardContainer}>
-        <Block flex style={imgContainer}>
-          <Image resizeMode="cover" source={{ uri: product.productPictureUrl }} style={imageStyles} />
-        </Block>
-        <Block flex space="between" style={styles.cardDescription}>
+  const handlePress = () => {
+    if (address) {
+      navigation.navigate('OrderScreen');
+    } else {
+      setShowError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (address) {
+      setShowError(false);
+    }
+  }, [address]);
+
+  return (
+    <Block row={horizontal} card flex style={cardContainer}>
+      <Block flex style={imgContainer}>
+        <Image resizeMode="cover" source={{ uri: product.productPictureUrl }} style={imageStyles} />
+      </Block>
+      <Block flex space="between" style={styles.cardDescription}>
+        <Block flex center>
+          <Text
+            size={18}
+            style={{
+              fontFamily: 'montserrat-bold',
+              marginBottom: theme.SIZES.BASE,
+              marginTop: theme.SIZES.BASE / 2
+            }}
+            color={nowTheme.COLORS.PRIMARY}
+          >
+            {product.productPrice / 100} €
+          </Text>
+
           <Block flex center>
             <Text
-              size={18}
+              h6
               style={{
-                fontFamily: 'montserrat-bold',
-                marginBottom: theme.SIZES.BASE,
-                marginTop: theme.SIZES.BASE /2
+                fontFamily: 'next-sphere-black',
+                marginBottom: theme.SIZES.BASE / 2
               }}
-              color={nowTheme.COLORS.PRIMARY}
+              color={nowTheme.COLORS.HEADER}
             >
-              {product.productPrice / 100} €
+              {product.productName}
             </Text>
-
-            <Block flex center>
-              <Text
-                h6
-                style={{
-                  fontFamily: 'next-sphere-black',
-                  marginBottom: theme.SIZES.BASE / 2
-                }}
-                color={nowTheme.COLORS.HEADER}
-              >
-                {product.productName}
-              </Text>
-            </Block>
-
-            <Block flex center>
-              <Text
-                style={{
-                  fontFamily: 'montserrat-regular',
-                  textAlign: 'center',
-                  padding: 15,
-                  lineHeight: 14
-                }}
-                size={14}
-                color={nowTheme.COLORS.DEFAULT}
-              >
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-              </Text>
-            </Block>
-
           </Block>
-          <Button
-            textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate('OrderScreen')
+
+          <Block flex center>
+            <Text
+              style={{
+                fontFamily: 'montserrat-regular',
+                textAlign: 'center',
+                padding: 15,
+                lineHeight: 14
+              }}
+              size={14}
+              color={nowTheme.COLORS.DEFAULT}
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </Text>
+          </Block>
+        </Block>
+        <Button
+          textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
+          style={styles.button}
+          onPress={handlePress}
+        >
+          Order
+        </Button>
+        {showError && (
+          <Text
+            style={{
+              fontFamily: 'montserrat-regular',
+              textAlign: 'center',
+              color: 'red',
+              marginTop: 0
             }}
           >
-            Order
-          </Button>
-        </Block>
+            Please insert a valid address
+          </Text>
+        )}
       </Block>
-    );
-  }
-}
+    </Block>
+  );
+};
 
 ProductCard.propTypes = {
   product: PropTypes.object,
@@ -149,3 +174,4 @@ const styles = StyleSheet.create({
 });
 
 export default withNavigation(ProductCard);
+
