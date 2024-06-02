@@ -1,20 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block } from 'galio-framework';
+import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
 import OrderCard from '../components/OrderCard';
-import { GlobalContext } from '../GlobalContext'; // Import the GlobalContext
+import { GlobalContext } from '../GlobalContext';
+import { Input } from '../components';
 
 const { width } = Dimensions.get("screen");
 
 const OrderScreen = () => {
-  const { state } = useContext(GlobalContext); // Use the context to get the product
+  const { state } = useContext(GlobalContext);
   const { product } = state;
+
+  const [additionalDetailsFocus, setAdditionalDetailsFocus] = useState(false);
 
   const renderCards = () => {
     return (
       <Block flex style={styles.group}>
-        <OrderCard key={0} product={product} full titleStyle={styles.productTitle} imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }} />
+        <OrderCard
+          key={0}
+          product={product}
+          full
+          titleStyle={styles.productTitle}
+          imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
+        />
+        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
+          <Input
+            primary={additionalDetailsFocus}
+            right
+            placeholder="Additional details"
+            onFocus={() => setAdditionalDetailsFocus(true)}
+            onBlur={() => setAdditionalDetailsFocus(false)}
+            iconContent={<Block />}
+            shadowless
+          />
+        </Block>
       </Block>
     );
   };
@@ -44,4 +64,3 @@ const styles = StyleSheet.create({
 });
 
 export default OrderScreen;
-

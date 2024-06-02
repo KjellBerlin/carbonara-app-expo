@@ -1,0 +1,29 @@
+import { useContext, useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { GlobalContext } from '../GlobalContext'; // Import the GlobalContext
+
+const PRODUCT_QUERY = gql`
+    query MEALS {
+        activeProduct {
+            productId,
+            productPrice,
+            productName,
+            productPictureUrl
+        }
+    }
+`;
+
+const useProduct = () => {
+  const { loading, data } = useQuery(PRODUCT_QUERY, { fetchPolicy: 'cache-and-network' });
+  const { updateProduct } = useContext(GlobalContext); // Use the context
+
+  useEffect(() => {
+    if (data && data.activeProduct) {
+      updateProduct(data.activeProduct); // Update the context with the product data
+    }
+  }, [data]);
+
+  return { loading, data };
+};
+
+export default useProduct;

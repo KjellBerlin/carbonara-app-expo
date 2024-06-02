@@ -1,34 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React from 'react';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, Text } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { gql, useQuery } from '@apollo/client';
 import Loading from '../components/Loading';
 import ProductCard from '../components/ProductCard';
-import { GlobalContext } from '../GlobalContext'; // Import the GlobalContext
+import useProduct from '../hooks/useProduct'; // Import the custom hook
 
-const { width } = Dimensions.get("screen");
-
-const PRODUCT_QUERY = gql`
-  query MEALS {
-    activeProduct {
-      productId,
-      productPrice,
-      productName,
-      productPictureUrl
-    }
-  }
-`;
+const { width } = Dimensions.get('screen');
 
 export const Product = () => {
-  const { loading, data } = useQuery(PRODUCT_QUERY, { fetchPolicy: "cache-and-network" });
-  const { updateProduct } = useContext(GlobalContext); // Use the context
-
-  useEffect(() => {
-    if (data && data.activeProduct) {
-      updateProduct(data.activeProduct); // Update the context with the product data
-    }
-  }, [data]);
+  const { loading, data } = useProduct();
 
   if (loading) {
     return <Loading />;
@@ -42,7 +23,13 @@ export const Product = () => {
   }
   return (
     <Block>
-      <ProductCard key={0} product={data.activeProduct} full titleStyle={styles.productTitle} imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }} />
+      <ProductCard
+        key={0}
+        product={data.activeProduct}
+        full
+        titleStyle={styles.productTitle}
+        imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
+      />
     </Block>
   );
 };
@@ -83,4 +70,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProductScreen;
-

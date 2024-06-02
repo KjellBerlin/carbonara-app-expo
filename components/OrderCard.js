@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
     borderWidth: 0,
     minHeight: 114,
-    marginBottom: 4
+    marginBottom: 20
   },
   cardDescription: {
     padding: theme.SIZES.BASE / 2

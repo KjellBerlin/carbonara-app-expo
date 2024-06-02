@@ -24,8 +24,9 @@ const LoginScreen = ({ navigation }) => {
         audience: 'https://api.carbonara-app.com',
         scope: 'create:orders'
       });
-      await SecureStore.setItemAsync('jwt_token',credentials.accessToken);
+      await SecureStore.setItemAsync('jwt_token', credentials.accessToken);
       console.log("Log in successful");
+      // console.log(credentials.accessToken)
       navigation.navigate('App');
     } catch (e) {
       console.log(e);
