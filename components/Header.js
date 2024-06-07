@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { withNavigation } from '@react-navigation/compat';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Block, NavBar, Text, theme } from 'galio-framework';
@@ -7,6 +7,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import Icon from './Icon';
 import nowTheme from '../constants/Theme';
 import useServiceAvailability from '../hooks/useServiceAvailability';
+import { GlobalContext } from '../GlobalContext';
 
 const { height, width } = Dimensions.get('window');
 const iPhoneX = () =>
@@ -28,6 +29,8 @@ const BellButton = ({ isWhite, style, navigation }) => (
 
 const Header = (props) => {
   const { serviceAvailability, loading, error, handleAddressSelect } = useServiceAvailability();
+  const { state } = useContext(GlobalContext);
+  const { firstName } = state;
 
   const handleLeftPress = () => {
     const { back, navigation } = props;
@@ -112,7 +115,7 @@ const Header = (props) => {
     // TODO: Use actual user name
     return (
       <Block>
-        <Text style={styles.hey}>HEY KJELL</Text>
+        <Text style={styles.hey}>Hey {firstName}</Text>
       </Block>
     );
   };
@@ -276,4 +279,3 @@ const styles = StyleSheet.create({
 });
 
 export default withNavigation(Header);
-

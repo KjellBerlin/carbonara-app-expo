@@ -10,7 +10,7 @@ const { width } = Dimensions.get("screen");
 
 const OrderScreen = () => {
   const { state } = useContext(GlobalContext);
-  const { product, address } = state;
+  const { fullName, product, address } = state;
 
   const [additionalDetailsFocus, setAdditionalDetailsFocus] = useState(false);
 
@@ -29,7 +29,7 @@ const OrderScreen = () => {
           {address && (
             // TODO: Remove hardcoded name
             <Block>
-              <Text style={styles.addressText}>Kjell Lillie-Stolze</Text>
+              <Text style={styles.addressText}>{fullName}</Text>
               <Text style={styles.addressText}>{address.street} {address.streetNumber}</Text>
               <Text style={styles.addressText}>{address.postCode} {address.city}</Text>
             </Block>
