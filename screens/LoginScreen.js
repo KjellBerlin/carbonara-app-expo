@@ -6,19 +6,18 @@ import { HeaderHeight } from '../constants/utils';
 import { useAuth0 } from 'react-native-auth0';
 import * as SecureStore from 'expo-secure-store';
 import { GlobalContext } from '../GlobalContext';
+import Auth0 from 'react-native-auth0';
 
 const { width, height } = Dimensions.get('screen');
 
 const LoginScreen = ({ navigation }) => {
   const { authorize, user } = useAuth0();
   const loggedIn = user !== undefined && user !== null;
-  const { updateAddress } = useContext(GlobalContext); // Destructure setAddress from context
+  const { updateFirstName, updateFullName, updateAddress, updateAuth0UserId } = useContext(GlobalContext);
 
   useEffect(() => {
-      if (loggedIn === true) navigation.navigate('App');
-    },
-    [loggedIn, navigation]
-  );
+    if (loggedIn === true) navigation.navigate('App');
+  }, [loggedIn, navigation]);
 
   const onLogin = async () => {
     try {
@@ -28,10 +27,19 @@ const LoginScreen = ({ navigation }) => {
       });
       await SecureStore.setItemAsync('jwt_token', credentials.accessToken);
       console.log("Log in successful");
+
+      // Fetch user details after successful login
+      const auth0 = new Auth0({ domain: 'dev-yntwqm72gdl58ssy.us.auth0.com', clientId: 'df43s61p15MI3pp7UoBPV0tEQ0DA6dIc' });
+      const userInfo = await auth0.auth.userInfo({ token: credentials.accessToken });
+      console.log("User Info:", userInfo);
+
+      updateFirstName(userInfo.nickname)
+      updateFullName(userInfo.name)
+      updateAuth0UserId(userInfo.sub)
       updateAddress(null); // Set address to null in globalContext
       navigation.navigate('App');
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -89,3 +97,4 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
