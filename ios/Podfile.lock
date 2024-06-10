@@ -15,7 +15,7 @@ PODS:
     - ExpoModulesCore
   - ExpoFileSystem (16.0.9):
     - ExpoModulesCore
-  - ExpoFont (12.0.5):
+  - ExpoFont (12.0.7):
     - ExpoModulesCore
   - ExpoKeepAwake (12.8.2):
     - ExpoModulesCore
@@ -1083,9 +1083,7 @@ PODS:
     - React-jsi (= 0.73.6)
     - React-logger (= 0.73.6)
     - React-perflogger (= 0.73.6)
-  - RNCMaskedView (0.3.0):
-    - React-Core
-  - RNGestureHandler (2.16.0):
+  - RNGestureHandler (2.16.2):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1099,8 +1097,6 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - React-RCTImage
-  - RNSVG (15.3.0):
-    - React-Core
   - RNVectorIcons (10.0.3):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1169,11 +1165,9 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1300,16 +1294,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  RNCMaskedView:
-    :path: "../node_modules/@react-native-masked-view/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSVG:
-    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -1319,11 +1309,11 @@ SPEC CHECKSUMS:
   A0Auth0: d6fa13c9daf99f5fb17a412837ea37f8db38a562
   Auth0: 72f19ad566fdf57f07bf37f828afd0c1570769a5
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
-  DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
+  DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   EXConstants: a5f6276e565d98f9eb4280f81241fc342d641590
   Expo: ad8bce0c0fc557cae703cc8dbce73d61a90ab5c5
   ExpoFileSystem: 74cc0fae916f9f044248433971dcfc8c3befd057
-  ExpoFont: 690b76008be824e47907f200cb0764870108dfd1
+  ExpoFont: 43b69559cef3d773db57c7ae7edd3cb0aa0dc610
   ExpoKeepAwake: 0f5cad99603a3268e50af9a6eb8b76d0d9ac956c
   ExpoModulesCore: 4a8928a228569301ac4fc4a1e846713e05754d05
   ExpoSecureStore: 5f6b712785986b54d95a92bd365aabb82a52088e
@@ -1376,11 +1366,9 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 9636eee762c699ca7c85751a359101797e4c8b3b
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
-  RNCMaskedView: f7c74478c83c4fdfc5cf4df51f80c0dd5cf125c6
-  RNGestureHandler: bc2cdb2dc42facdf34992ae364b8a728e19a3686
+  RNGestureHandler: 96439cf6543defdde87459e48cd1a3f0e45a008e
   RNReanimated: 6cfa556540186ce7ae7a0b048f369236b1d86ebb
   RNScreens: 134a7511b12b8eb440b87aac21e36a71295d6024
-  RNSVG: a48668fd382115bc89761ce291a81c4ca5f2fd2e
   RNVectorIcons: 73ab573085f65a572d3b6233e68996d4707fd505
   SimpleKeychain: f8707c8e97b38c6a6e687b17732afc9bcef06439
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
