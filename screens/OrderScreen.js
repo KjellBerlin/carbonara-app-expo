@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block, theme, Text } from 'galio-framework';
+import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
 import OrderCard from '../components/OrderCard';
+import AddressCard from '../components/AddressCard';
 import { GlobalContext } from '../GlobalContext';
-import { Input } from '../components';
+import { Button } from '../components';
+import useCreateOrder from '../hooks/useCreateOrder';
 
 const { width } = Dimensions.get("screen");
 
@@ -14,9 +16,17 @@ const OrderScreen = () => {
 
   const [additionalDetailsFocus, setAdditionalDetailsFocus] = useState(false);
 
+  // Call the hook at the top level of the component
+  const { data, createOrder } = useCreateOrder();
+
+  const handlePress = () => {
+    createOrder();
+    console.log("Order: " + data.createOrder.orderId + " Redirect link: " + data.createOrder.paymentRedirectionLink);
+  };
+
   const renderCards = () => {
     return (
-      <Block flex style={styles.group}>
+      <Block>
         <OrderCard
           key={0}
           product={product}
@@ -24,25 +34,20 @@ const OrderScreen = () => {
           titleStyle={styles.productTitle}
           imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
         />
-        <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-          <Text style={styles.addressTitle} color={nowTheme.COLORS.HEADER}>address:</Text>
-          {address && (
-            // TODO: Remove hardcoded name
-            <Block>
-              <Text style={styles.addressText}>{fullName}</Text>
-              <Text style={styles.addressText}>{address.street} {address.streetNumber}</Text>
-              <Text style={styles.addressText}>{address.postCode} {address.city}</Text>
-            </Block>
-          )}
-          <Input
-            primary={additionalDetailsFocus}
-            right
-            placeholder="Additional details"
-            onFocus={() => setAdditionalDetailsFocus(true)}
-            onBlur={() => setAdditionalDetailsFocus(false)}
-            iconContent={<Block />}
-            shadowless
-          />
+        <AddressCard
+          fullName={fullName}
+          address={address}
+          additionalDetailsFocus={additionalDetailsFocus}
+          setAdditionalDetailsFocus={setAdditionalDetailsFocus}
+        />
+        <Block>
+          <Button
+            textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
+            style={styles.button}
+            onPress={handlePress}
+          >
+            Order with obligation to pay
+          </Button>
         </Block>
       </Block>
     );
@@ -70,21 +75,10 @@ const styles = StyleSheet.create({
     fontFamily: 'next-sphere-black',
     fontSize: 18
   },
-  addressTitle: {
-    fontFamily: 'next-sphere-black',
-    fontSize: 18,
-    paddingTop: 12,
-    paddingBottom: 2,
-    marginBottom: theme.SIZES.BASE / 2,
-    marginLeft: 6
-  },
-  addressText: {
-    color: nowTheme.COLORS.DEFAULT,
-    textAlign: 'left',
-    fontFamily: 'montserrat-regular',
-    fontSize: 14,
-    marginLeft: 6,
-    marginBottom: 2,
+  button: {
+    marginTop: 60,
+    width: width - theme.SIZES.BASE * 2,
+    marginLeft: 16,
   },
 });
 
