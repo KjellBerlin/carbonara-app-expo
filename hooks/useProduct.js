@@ -19,7 +19,7 @@ const useProduct = () => {
 
   useEffect(() => {
     if (data && data.activeProduct) {
-      updateProduct(data.activeProduct); // Update the context with the product data
+      updateProduct(data.activeProduct); // Update global context with the product data
     }
   }, [data]);
 

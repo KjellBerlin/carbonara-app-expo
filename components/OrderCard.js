@@ -5,11 +5,11 @@ import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 
 import { nowTheme } from '../constants';
-import { Button, Select } from './index';
+import { Button } from './index';
 
 const { width } = Dimensions.get('screen');
 
-class ProductCard extends React.Component {
+class OrderCard extends React.Component {
 
   render() {
     const {
@@ -60,7 +60,7 @@ class ProductCard extends React.Component {
               style={{
                 fontFamily: 'montserrat-bold',
                 marginBottom: theme.SIZES.BASE,
-                marginTop: theme.SIZES.BASE / 4 // Adjusted to bring it closer
+                marginTop: theme.SIZES.BASE / 4
               }}
               color={nowTheme.COLORS.PRIMARY}
             >
@@ -73,34 +73,25 @@ class ProductCard extends React.Component {
           </Block>
         </Block>
         <Block flex>
-          <Block style={{ paddingHorizontal: theme.SIZES.BASE }}>
-            <Block row space="between">
-              <Block flex style={{ marginTop: 8, marginRight: 5 }}>
-                <Select defaultIndex={1} options={['01', '02', '03', '04', '05']} style={styles.selectButton} />
-              </Block>
-              <Block flex style={{ marginLeft: 5 }}>
-                <Button
-                  textStyle={{ fontFamily: 'next-sphere-black', fontSize: 10 }}
-                  small
-                  center
-                  color="default"
-                  style={styles.optionsButton}
-                  onPress={() => {
-                    navigation.navigate('ProductScreen')}
-                  }
-                >
-                  DELETE
-                </Button>
-              </Block>
-            </Block>
-          </Block>
+          <Button
+            textStyle={{ fontFamily: 'next-sphere-black', fontSize: 10 }}
+            small
+            center
+            color="default"
+            style={styles.optionsButton}
+            onPress={() => {
+              navigation.navigate('ProductScreen')}
+            }
+          >
+            DELETE
+          </Button>
         </Block>
       </Block>
     );
   }
 }
 
-ProductCard.propTypes = {
+OrderCard.propTypes = {
   product: PropTypes.object,
   horizontal: PropTypes.bool,
   full: PropTypes.bool,
@@ -141,21 +132,18 @@ const styles = StyleSheet.create({
     marginBottom: theme.SIZES.BASE,
     width: width - theme.SIZES.BASE * 2,
   },
-  selectButton: {
-    width: 'auto',
-    marginLeft: 7,
-    marginRight: 5
-  },
   optionsButton: {
-    width: 'auto',
+    width: width - theme.SIZES.BASE * 2,
     height: 34,
     paddingHorizontal: 0,
-    paddingVertical: 0
+    paddingVertical: 0,
+    marginLeft: 15,
+    marginRight: 15
   },
   imageStyles: {
     width: width / 3.5,
     height: width / 3.5,
-    marginRight: 24,
+    marginRight: 18,
     marginTop: 20,
     marginBottom: 10,
     borderRadius: 3,
@@ -167,5 +155,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(ProductCard);
+export default withNavigation(OrderCard);
 
