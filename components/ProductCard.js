@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { withNavigation } from '@react-navigation/compat';
 import PropTypes from 'prop-types';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
+import { withNavigation } from '@react-navigation/compat';
 
 import { nowTheme } from '../constants';
 import { Button } from './index';
@@ -10,16 +10,7 @@ import { GlobalContext } from '../GlobalContext';
 
 const { width } = Dimensions.get('screen');
 
-const ProductCard = (props) => {
-  const {
-    product,
-    horizontal,
-    full,
-    style,
-    imageStyle,
-    navigation // Get the navigation prop
-  } = props;
-
+const ProductCard = ({ product, horizontal, full, style, imageStyle, navigation }) => {
   const { state } = useContext(GlobalContext);
   const { address } = state;
   const [showError, setShowError] = useState(false);
@@ -29,7 +20,7 @@ const ProductCard = (props) => {
   const imgContainer = [
     styles.imageContainer,
     horizontal ? styles.horizontalStyles : styles.verticalStyles,
-    styles.shadow
+    styles.shadow,
   ];
 
   const handlePress = () => {
@@ -53,62 +44,25 @@ const ProductCard = (props) => {
       </Block>
       <Block flex space="between" style={styles.cardDescription}>
         <Block flex center>
-          <Text
-            size={18}
-            style={{
-              fontFamily: 'montserrat-bold',
-              marginBottom: theme.SIZES.BASE,
-              marginTop: theme.SIZES.BASE / 2
-            }}
-            color={nowTheme.COLORS.PRIMARY}
-          >
+          <Text style={styles.productPrice} color={nowTheme.COLORS.PRIMARY}>
             {product.productPrice / 100} €
           </Text>
-
           <Block flex center>
-            <Text
-              h6
-              style={{
-                fontFamily: 'next-sphere-black',
-                marginBottom: theme.SIZES.BASE / 2
-              }}
-              color={nowTheme.COLORS.HEADER}
-            >
+            <Text style={styles.productName} color={nowTheme.COLORS.HEADER}>
               {product.productName}
             </Text>
           </Block>
-
           <Block flex center>
-            <Text
-              style={{
-                fontFamily: 'montserrat-regular',
-                textAlign: 'center',
-                padding: 15,
-                lineHeight: 14
-              }}
-              size={14}
-              color={nowTheme.COLORS.DEFAULT}
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            <Text style={styles.longDescription} color={nowTheme.COLORS.DEFAULT}>
+              {product.longProductDescription}
             </Text>
           </Block>
         </Block>
-        <Button
-          textStyle={{ fontFamily: 'next-sphere-black', fontSize: 12 }}
-          style={styles.button}
-          onPress={handlePress}
-        >
+        <Button textStyle={styles.buttonText} style={styles.button} onPress={handlePress}>
           Order
         </Button>
         {showError && (
-          <Text
-            style={{
-              fontFamily: 'montserrat-regular',
-              textAlign: 'center',
-              color: 'red',
-              marginTop: 0
-            }}
-          >
+          <Text style={styles.errorText}>
             Please insert a valid address
           </Text>
         )}
@@ -118,15 +72,20 @@ const ProductCard = (props) => {
 };
 
 ProductCard.propTypes = {
-  product: PropTypes.object,
+  product: PropTypes.shape({
+    productName: PropTypes.string.isRequired,
+    shortProductDescription: PropTypes.string,
+    longProductDescription: PropTypes.string.isRequired,
+    productPrice: PropTypes.number.isRequired,
+    productPictureUrl: PropTypes.string.isRequired,
+  }).isRequired,
   horizontal: PropTypes.bool,
   full: PropTypes.bool,
-  ctaColor: PropTypes.string,
+  style: PropTypes.any,
   imageStyle: PropTypes.any,
-  ctaRight: PropTypes.bool,
-  titleStyle: PropTypes.any,
-  textBodyStyle: PropTypes.any,
-  navigation: PropTypes.object // Add navigation to prop types
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -134,44 +93,71 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
     borderWidth: 0,
     minHeight: 114,
-    marginBottom: 4
+    marginBottom: 4,
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2
+    padding: theme.SIZES.BASE / 2,
   },
   imageContainer: {
     borderRadius: 3,
     elevation: 1,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   horizontalImage: {
     height: 122,
-    width: 'auto'
+    width: 'auto',
   },
   horizontalStyles: {
     borderTopRightRadius: 0,
-    borderBottomRightRadius: 0
+    borderBottomRightRadius: 0,
   },
   verticalStyles: {
     borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0
+    borderBottomLeftRadius: 0,
   },
   fullImage: {
-    height: 215
+    height: 215,
   },
   shadow: {
     shadowColor: '#8898AA',
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 6,
     shadowOpacity: 0.1,
-    elevation: 2
+    elevation: 2,
   },
   button: {
     marginTop: theme.SIZES.BASE * 1.2,
     marginBottom: theme.SIZES.BASE,
     width: width - theme.SIZES.BASE * 2,
   },
+  buttonText: {
+    fontFamily: 'next-sphere-black',
+    fontSize: 12,
+  },
+  productPrice: {
+    fontFamily: 'montserrat-bold',
+    marginBottom: theme.SIZES.BASE,
+    marginTop: theme.SIZES.BASE / 2,
+    fontSize: 18,
+  },
+  productName: {
+    fontFamily: 'next-sphere-black',
+    marginBottom: theme.SIZES.BASE / 2,
+    fontSize: 24,
+  },
+  longDescription: {
+    fontFamily: 'montserrat-regular',
+    textAlign: 'center',
+    padding: 15,
+    lineHeight: 14,
+    fontSize: 14,
+  },
+  errorText: {
+    fontFamily: 'montserrat-regular',
+    textAlign: 'center',
+    color: 'red',
+    marginTop: 0,
+  },
 });
 
 export default withNavigation(ProductCard);
-

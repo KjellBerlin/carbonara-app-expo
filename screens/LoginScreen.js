@@ -26,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
         scope: 'create:orders'
       });
       await SecureStore.setItemAsync('jwt_token', credentials.accessToken);
-      console.log(credentials.accessToken)
+      console.log(credentials.accessToken) // TODO: Remove log
       console.log("Log in successful");
 
       // Fetch user details after successful login

@@ -8,7 +8,9 @@ const PRODUCT_QUERY = gql`
             productId,
             productPrice,
             productName,
-            productPictureUrl
+            productPictureUrl,
+            shortProductDescription,
+            longProductDescription
         }
     }
 `;
