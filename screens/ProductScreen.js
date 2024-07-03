@@ -4,69 +4,68 @@ import { Block, Text } from 'galio-framework';
 import { nowTheme } from '../constants';
 import Loading from '../components/Loading';
 import ProductCard from '../components/ProductCard';
-import useProduct from '../hooks/useProduct'; // Import the custom hook
+import useProduct from '../hooks/useProduct';
 
 const { width } = Dimensions.get('screen');
 
-export const Product = () => {
+const ProductScreen = () => {
   const { loading, data } = useProduct();
 
-  if (loading) {
-    return <Loading />;
-  }
-  if (data == null) {
+  const renderContent = () => {
+    if (loading) {
+      return <Loading />;
+    }
+    if (!data) {
+      return (
+        <Block>
+          <Text>Error loading product data</Text>
+        </Block>
+      );
+    }
     return (
       <Block>
-        <Text>Error loading product data</Text>
-      </Block>
-    );
-  }
-  return (
-    <Block>
-      <ProductCard
-        key={0}
-        product={data.activeProduct}
-        full
-        titleStyle={styles.productTitle}
-        imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
-      />
-    </Block>
-  );
-};
-
-class ProductScreen extends React.Component {
-  renderCards = () => {
-    return (
-      <Block flex style={styles.group}>
-        <Product />
+        <ProductCard
+          key={0}
+          product={data.activeProduct}
+          full
+          titleStyle={styles.productTitle}
+          imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
+        />
       </Block>
     );
   };
 
-  render() {
-    return (
-      <Block flex center style={styles.home}>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 30, width }}
-        >
-          {this.renderCards()}
-        </ScrollView>
-      </Block>
-    );
-  }
-}
+  return (
+    <Block flex center style={styles.home}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContainer}
+      >
+        <Block flex style={styles.group}>
+          {renderContent()}
+        </Block>
+      </ScrollView>
+    </Block>
+  );
+};
 
 const styles = StyleSheet.create({
   home: {
-    width: width
+    width,
+  },
+  scrollContainer: {
+    paddingBottom: 30,
+    width,
+  },
+  group: {
+    flex: 1,
   },
   productTitle: {
     color: nowTheme.COLORS.PRIMARY,
     textAlign: 'center',
     fontFamily: 'next-sphere-black',
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
 
 export default ProductScreen;
