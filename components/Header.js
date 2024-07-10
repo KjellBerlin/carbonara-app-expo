@@ -30,7 +30,7 @@ const BellButton = ({ isWhite, style, navigation }) => (
 const Header = (props) => {
   const { serviceAvailability, loading, error, handleAddressSelect } = useServiceAvailability();
   const { state } = useContext(GlobalContext);
-  const { firstName } = state;
+  const { firstName, googlePlacesAPIKey } = state;
 
   const handleLeftPress = () => {
     const { back, navigation } = props;
@@ -59,7 +59,7 @@ const Header = (props) => {
           placeholder="Where do you live?"
           onPress={handleAddressSelect}
           query={{
-            key: 'AIzaSyBUNIqACbeX2VTDaUZC_1ZsCSMPL6MK2DI',
+            key: googlePlacesAPIKey,
             language: 'en',
             components: 'country:de',
           }}
@@ -112,7 +112,6 @@ const Header = (props) => {
   };
 
   const renderHeyUser = () => {
-    // TODO: Use actual user name
     return (
       <Block>
         <Text style={styles.hey}>Hey {firstName}</Text>

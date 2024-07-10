@@ -10,7 +10,10 @@ export const GlobalProvider = ({ children }) => {
     address: null,
     firstName: null,
     fullName: null,
-    auth0UserId: null
+    auth0UserId: null,
+    auth0ClientId: null,
+    auth0Domain: null,
+    googlePlacesAPIKey: null,
   });
 
   const updateProduct = (product) => {
@@ -48,10 +51,26 @@ export const GlobalProvider = ({ children }) => {
     }));
   };
 
+  const updateAPIKeys = (apiKeys) => {
+    setState((prevState) => ({
+      ...prevState,
+      auth0ClientId: apiKeys.auth0ClientId,
+      auth0Domain: apiKeys.auth0Domain,
+      googlePlacesAPIKey: apiKeys.googlePlacesAPIKey,
+    }));
+  };
+
   return (
-    <GlobalContext.Provider value={{ state, updateProduct, updateAddress, updateFirstName, updateFullName, updateAuth0UserId }}>
+    <GlobalContext.Provider value={{
+      state,
+      updateProduct,
+      updateAddress,
+      updateFirstName,
+      updateFullName,
+      updateAuth0UserId,
+      updateAPIKeys,
+    }}>
       {children}
     </GlobalContext.Provider>
   );
 };
-
