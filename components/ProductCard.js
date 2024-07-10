@@ -12,7 +12,7 @@ const { width } = Dimensions.get('screen');
 
 const ProductCard = ({ product, horizontal, full, style, imageStyle, navigation }) => {
   const { state } = useContext(GlobalContext);
-  const { address } = state;
+  const { address, serviceAvailability } = state;
   const [showError, setShowError] = useState(false);
 
   const imageStyles = [full ? styles.fullImage : styles.horizontalImage, imageStyle];
@@ -24,8 +24,9 @@ const ProductCard = ({ product, horizontal, full, style, imageStyle, navigation 
   ];
 
   const handlePress = () => {
+    console.log(serviceAvailability)
     if (address) {
-      navigation.navigate('OrderScreen');
+      navigation.navigate('HomeScreen');
     } else {
       setShowError(true);
     }

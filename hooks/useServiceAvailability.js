@@ -31,8 +31,6 @@ const useServiceAvailability = () => {
 
       if (data.serviceAvailability.available && data.serviceAvailability.address) {
         updateAddress(data.serviceAvailability.address);
-      } else {
-        updateAddress(null)
       }
     }
   });

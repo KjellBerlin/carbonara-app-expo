@@ -11,13 +11,14 @@ import Register from '../screens/Register';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import OrderScreen from '../screens/OrderScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const { width } = Dimensions.get('screen');
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
-function HomeStack() {
+function ProductStack() {
   return (
     <Stack.Navigator
       initialRouterName="ProductScreen"
@@ -100,9 +101,32 @@ function AccountStack() {
         component={Register}
         options={{
           header: ({ navigation, scene }) => (
-            <Header transparent title="Create Account" navigation={navigation} scene={scene} />
+            <Header transparent title="Account" navigation={navigation} scene={scene} />
           ),
           headerTransparent: true,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function AboutStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="AboutScreen"
+      screenOptions={{
+        mode: 'card',
+        headerShown: 'screen',
+      }}
+    >
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="About" search options navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
         }}
       />
     </Stack.Navigator>
@@ -142,7 +166,7 @@ function AppStack() {
     >
       <Drawer.Screen
         name="ProductScreen"
-        component={HomeStack}
+        component={ProductStack}
         options={{
           headerShown: false,
         }}
@@ -164,6 +188,13 @@ function AppStack() {
       <Drawer.Screen
         name="Account"
         component={AccountStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="About"
+        component={AboutStack}
         options={{
           headerShown: false,
         }}
