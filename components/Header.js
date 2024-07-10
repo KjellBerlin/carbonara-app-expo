@@ -16,7 +16,7 @@ const iPhoneX = () =>
 const BellButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity
     style={[styles.button, style]}
-    onPress={() => navigation.navigate('Pro')}
+    onPress={() => navigation.navigate('About')}
   >
     <Icon
       family="NowExtra"
@@ -38,18 +38,8 @@ const Header = (props) => {
   };
 
   const renderRight = () => {
-    const { white, title, navigation } = props;
-    if (title === 'Title') {
-      return [<BellButton key="chat-title" navigation={navigation} isWhite={white} />];
-    }
-    switch (title) {
-      case 'Home':
-        return [<BellButton key="chat-home" navigation={navigation} isWhite={white} />];
-      case 'Account':
-        return [<BellButton key="chat-profile" navigation={navigation} />];
-      default:
-        break;
-    }
+    const { navigation } = props;
+    return [<BellButton key="about" navigation={navigation}/>];
   };
 
   const googlePlacesInput = () => {
@@ -76,10 +66,10 @@ const Header = (props) => {
               paddingTop: 4,
               paddingBottom: 4,
               height: 36,
-              justifyContent: 'center', // Center the text vertically
+              justifyContent: 'center',
             },
             textInput: {
-              height: '100%', // Ensure textInput takes the full height of textInputContainer
+              height: '100%',
               color: nowTheme.COLORS.DEFAULT,
               fontSize: 14,
               fontFamily: 'montserrat-regular',
@@ -273,7 +263,7 @@ const styles = StyleSheet.create({
     padding: 0,
     lineHeight: 14,
     fontSize: 14,
-    color: nowTheme.COLORS.DEFAULT, // Set the text color to nowTheme.COLORS.DEFAULT
+    color: nowTheme.COLORS.DEFAULT,
   },
 });
 
