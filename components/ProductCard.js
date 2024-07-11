@@ -26,7 +26,7 @@ const ProductCard = ({ product, horizontal, full, style, imageStyle, navigation 
   const handlePress = () => {
     console.log(serviceAvailability)
     if (address) {
-      navigation.navigate('HomeScreen');
+      navigation.navigate('OrderScreen');
     } else {
       setShowError(true);
     }

@@ -12,6 +12,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import OrderScreen from '../screens/OrderScreen';
 import AboutScreen from '../screens/AboutScreen';
+import OrderStatusScreen from '../screens/OrderStatusScreen';
 
 const { width } = Dimensions.get('screen');
 
@@ -133,6 +134,29 @@ function AboutStack() {
   );
 }
 
+function OrderStatusStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="OrderStatusScreen"
+      screenOptions={{
+        mode: 'card',
+        headerShown: 'screen',
+      }}
+    >
+      <Stack.Screen
+        name="Order Status"
+        component={OrderStatusScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Order Status" search options navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function AppStack() {
   return (
     <Drawer.Navigator
@@ -195,6 +219,13 @@ function AppStack() {
       <Drawer.Screen
         name="About"
         component={AboutStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Drawer.Screen
+        name="Order Status"
+        component={OrderStatusStack}
         options={{
           headerShown: false,
         }}

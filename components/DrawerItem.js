@@ -5,7 +5,6 @@ import Icon from './Icon';
 import React from 'react';
 import nowTheme from '../constants/Theme';
 import { useAuth0 } from 'react-native-auth0';
-import LoginScreen from '../screens/LoginScreen';
 
 const DrawerItem = ({ title, focused, navigation }) => {
 
@@ -14,7 +13,17 @@ const DrawerItem = ({ title, focused, navigation }) => {
       case 'Home':
         return (
           <Icon
-            name="app2x"
+            name="shop2x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
+            style={{ opacity: 0.5 }}
+          />
+        );
+      case 'Order Status':
+        return (
+          <Icon
+            name="delivery-fast2x"
             family="NowExtra"
             size={18}
             color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
@@ -34,7 +43,7 @@ const DrawerItem = ({ title, focused, navigation }) => {
       case 'Account':
         return (
           <Icon
-            name="badge2x"
+            name="settings-902x"
             family="NowExtra"
             size={18}
             color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
