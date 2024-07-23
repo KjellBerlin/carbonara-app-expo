@@ -27,8 +27,6 @@ class ComponentScreen extends React.Component {
     };
   }
 
-
-
   toggleSwitch = switchId => this.setState({ [switchId]: !this.state[switchId] });
 
   renderButtons = () => {

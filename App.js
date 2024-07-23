@@ -13,7 +13,7 @@ import { Auth0Provider } from 'react-native-auth0';
 import { setContext } from '@apollo/client/link/context';
 import * as SecureStore from 'expo-secure-store';
 
-import { GlobalProvider } from './GlobalContext'; // Import the GlobalProvider
+import { GlobalProvider } from './GlobalContext';
 
 // cache app images
 const assetImages = [
@@ -105,4 +105,3 @@ export default class App extends React.Component {
     }
   };
 }
-

@@ -20,16 +20,6 @@ const DrawerItem = ({ title, focused, navigation }) => {
             style={{ opacity: 0.5 }}
           />
         );
-      case 'Order Status':
-        return (
-          <Icon
-            name="delivery-fast2x"
-            family="NowExtra"
-            size={18}
-            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
-            style={{ opacity: 0.5 }}
-          />
-        );
       case 'Components':
         return (
           <Icon
@@ -44,6 +34,16 @@ const DrawerItem = ({ title, focused, navigation }) => {
         return (
           <Icon
             name="settings-902x"
+            family="NowExtra"
+            size={18}
+            color={focused ? nowTheme.COLORS.PRIMARY : 'black'}
+            style={{ opacity: 0.5 }}
+          />
+        );
+      case 'Order Status':
+        return (
+          <Icon
+            name="delivery-fast2x"
             family="NowExtra"
             size={18}
             color={focused ? nowTheme.COLORS.PRIMARY : 'black'}

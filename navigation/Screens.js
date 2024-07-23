@@ -22,10 +22,9 @@ const Drawer = createDrawerNavigator();
 function ProductStack() {
   return (
     <Stack.Navigator
-      initialRouterName="ProductScreen"
+      initialRouteName="ProductScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -47,8 +46,7 @@ function OrderStack() {
     <Stack.Navigator
       initialRouteName="OrderScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -70,8 +68,7 @@ function ComponentsStack() {
     <Stack.Navigator
       initialRouteName="ComponentScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -93,8 +90,7 @@ function AccountStack() {
     <Stack.Navigator
       initialRouteName="AccountScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -116,8 +112,7 @@ function AboutStack() {
     <Stack.Navigator
       initialRouteName="AboutScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -139,8 +134,7 @@ function OrderStatusStack() {
     <Stack.Navigator
       initialRouteName="OrderStatusScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -167,14 +161,14 @@ function AppStack() {
         width: width * 0.8,
       }}
       drawerContentOptions={{
-        activeTintcolor: nowTheme.COLORS.WHITE,
+        activeTintColor: nowTheme.COLORS.WHITE,
         inactiveTintColor: nowTheme.COLORS.WHITE,
         activeBackgroundColor: 'transparent',
         itemStyle: {
           width: width * 0.75,
           backgroundColor: 'transparent',
           paddingVertical: 16,
-          paddingHorizonal: 12,
+          paddingHorizontal: 12,
           justifyContent: 'center',
           alignContent: 'center',
           alignItems: 'center',
@@ -196,8 +190,8 @@ function AppStack() {
         }}
       />
       <Drawer.Screen
-        name="OrderScreen"
-        component={OrderStack}
+        name="Order Status"
+        component={OrderStatusStack}
         options={{
           headerShown: false,
         }}
@@ -224,8 +218,8 @@ function AppStack() {
         }}
       />
       <Drawer.Screen
-        name="Order Status"
-        component={OrderStatusStack}
+        name="OrderScreen"
+        component={OrderStack}
         options={{
           headerShown: false,
         }}
@@ -238,14 +232,13 @@ export default function OnboardingStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        mode: 'card',
         headerShown: false,
       }}
     >
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        option={{
+        options={{
           headerTransparent: true,
         }}
       />

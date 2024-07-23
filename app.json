@@ -2,6 +2,7 @@
   "expo": {
     "name": "Carbonara",
     "slug": "Carbonara",
+    "scheme": "carbonara",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -34,7 +35,7 @@
       "**/*"
     ],
     "ios": {
-      "bundleIdentifier": "com.auth0samples"
+      "bundleIdentifier": "carbonara"
     },
     "android": {
       "package": "com.auth0samples"
