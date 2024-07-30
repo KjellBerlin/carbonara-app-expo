@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 
 import { nowTheme } from '../constants';
 import { Button } from './index';
@@ -10,7 +10,8 @@ import { GlobalContext } from '../GlobalContext';
 
 const { width } = Dimensions.get('screen');
 
-const ProductCard = ({ product, horizontal, full, style, imageStyle, navigation }) => {
+const ProductCard = ({ product, horizontal, full, style, imageStyle }) => {
+  const navigation = useNavigation();
   const { state } = useContext(GlobalContext);
   const { address, serviceAvailability } = state;
   const [showError, setShowError] = useState(false);
@@ -24,7 +25,7 @@ const ProductCard = ({ product, horizontal, full, style, imageStyle, navigation 
   ];
 
   const handlePress = () => {
-    console.log(serviceAvailability)
+    console.log(serviceAvailability);
     if (address) {
       navigation.navigate('OrderScreen');
     } else {
@@ -84,9 +85,6 @@ ProductCard.propTypes = {
   full: PropTypes.bool,
   style: PropTypes.any,
   imageStyle: PropTypes.any,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -161,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(ProductCard);
+export default ProductCard;

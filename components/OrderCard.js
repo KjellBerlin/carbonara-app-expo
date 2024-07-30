@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 import { nowTheme } from '../constants';
 import { Button } from './index';
 
 const { width } = Dimensions.get('screen');
 
-const OrderCard = ({ product, horizontal, style, navigation }) => {
+const OrderCard = ({ product, horizontal, style }) => {
+  const navigation = useNavigation();
   const cardContainer = [styles.card, styles.shadow, style];
   const imgContainer = [
     styles.imageContainer,
@@ -61,9 +62,6 @@ OrderCard.propTypes = {
   }).isRequired,
   horizontal: PropTypes.bool,
   style: PropTypes.object,
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -128,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(OrderCard);
+export default OrderCard;

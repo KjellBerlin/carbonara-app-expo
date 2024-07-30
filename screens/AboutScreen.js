@@ -2,12 +2,13 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 import { Button } from '../components';
 
 const { width } = Dimensions.get('screen');
 
-const AboutScreen = ({ navigation }) => {
+const AboutScreen = () => {
+  const navigation = useNavigation();
 
   const renderContent = () => {
     return (
@@ -86,9 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(AboutScreen);
-
-
-
-
-
+export default AboutScreen;

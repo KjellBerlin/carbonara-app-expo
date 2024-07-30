@@ -2,11 +2,12 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('screen');
 
-const OrderStatusScreen = ({ navigation }) => {
+const OrderStatusScreen = () => {
+  const navigation = useNavigation();
 
   const renderContent = () => {
     return (
@@ -14,7 +15,7 @@ const OrderStatusScreen = ({ navigation }) => {
         <Block flex center>
           <Block flex center style={styles.titleContainer}>
             <Text style={styles.title} color={nowTheme.COLORS.HEADER}>
-              order Statuses
+              Order Statuses
             </Text>
           </Block>
         </Block>
@@ -60,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(OrderStatusScreen);
+export default OrderStatusScreen;
