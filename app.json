@@ -2,6 +2,7 @@
   "expo": {
     "name": "Carbonara",
     "slug": "Carbonara",
+    "scheme": "carbonara",
     "privacy": "public",
     "platforms": [
       "ios",

@@ -19,6 +19,7 @@ const OrderScreen = () => {
 
   const handlePress = async () => {
     try {
+      await InAppBrowser.warmup()
       await createOrder();
       if (!loading && data) {
         const { orderId, paymentRedirectionLink } = data.createOrder;
@@ -36,29 +37,19 @@ const OrderScreen = () => {
     try {
       if (await InAppBrowser.isAvailable()) {
         const result = await InAppBrowser.open(url, {
-          // iOS Properties
           dismissButtonStyle: 'cancel',
-          readerMode: false,
           animated: true,
           modalPresentationStyle: 'pageSheet',
           modalTransitionStyle: 'coverVertical',
           modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
           toolbarColor: '#6200EE',
           secondaryToolbarColor: 'black',
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
+          forceCloseOnRedirection: true,
           animations: {
             startEnter: 'slide_in_right',
             startExit: 'slide_out_left',
             endEnter: 'slide_in_left',
             endExit: 'slide_out_right',
-          },
-          headers: {
-            'my-custom-header': 'my custom header value',
           },
         });
         console.log(result);

@@ -2,14 +2,13 @@ import React from 'react';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import useProduct from '../hooks/useProduct';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 import { Button } from '../components';
 
 const { width } = Dimensions.get('screen');
 
-const AboutScreen = ({ navigation }) => {
-  const { loading, data } = useProduct();
+const AboutScreen = () => {
+  const navigation = useNavigation();
 
   const renderContent = () => {
     return (
@@ -17,7 +16,7 @@ const AboutScreen = ({ navigation }) => {
         <Block flex center>
           <Block flex center style={styles.titleContainer}>
             <Text style={styles.title} color={nowTheme.COLORS.HEADER}>
-              About us
+              About carbonara
             </Text>
           </Block>
           <Block flex center>
@@ -62,20 +61,20 @@ const styles = StyleSheet.create({
     padding: theme.SIZES.BASE / 2,
   },
   titleContainer: {
-    marginTop: theme.SIZES.BASE * 2, // Increased margin from the top
+    marginTop: theme.SIZES.BASE * 2,
   },
   title: {
     fontFamily: 'next-sphere-black',
-    marginBottom: theme.SIZES.BASE / 2,
+    marginBottom: theme.SIZES.BASE,
     fontSize: 24,
   },
   aboutText: {
     fontFamily: 'montserrat-regular',
     textAlign: 'center',
     padding: 15,
-    lineHeight: 20, // Adjusted lineHeight for better readability
+    lineHeight: 20,
     fontSize: 14,
-    marginBottom: theme.SIZES.BASE * 2, // Increased gap between text and button
+    marginBottom: theme.SIZES.BASE * 2,
   },
   button: {
     marginTop: theme.SIZES.BASE * 1.2,
@@ -88,9 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(AboutScreen);
-
-
-
-
-
+export default AboutScreen;

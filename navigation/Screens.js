@@ -12,6 +12,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import OrderScreen from '../screens/OrderScreen';
 import AboutScreen from '../screens/AboutScreen';
+import OrderStatusScreen from '../screens/OrderStatusScreen';
 
 const { width } = Dimensions.get('screen');
 
@@ -21,10 +22,9 @@ const Drawer = createDrawerNavigator();
 function ProductStack() {
   return (
     <Stack.Navigator
-      initialRouterName="ProductScreen"
+      initialRouteName="ProductScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -46,8 +46,7 @@ function OrderStack() {
     <Stack.Navigator
       initialRouteName="OrderScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -69,8 +68,7 @@ function ComponentsStack() {
     <Stack.Navigator
       initialRouteName="ComponentScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -92,8 +90,7 @@ function AccountStack() {
     <Stack.Navigator
       initialRouteName="AccountScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -115,8 +112,7 @@ function AboutStack() {
     <Stack.Navigator
       initialRouteName="AboutScreen"
       screenOptions={{
-        mode: 'card',
-        headerShown: 'screen',
+        headerShown: true,
       }}
     >
       <Stack.Screen
@@ -125,6 +121,28 @@ function AboutStack() {
         options={{
           header: ({ navigation, scene }) => (
             <Header title="About" search options navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function OrderStatusStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="OrderStatusScreen"
+      screenOptions={{
+        headerShown: true,
+      }}
+    >
+      <Stack.Screen
+        name="Order Status"
+        component={OrderStatusScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header title="Order Status" search options navigation={navigation} scene={scene} />
           ),
           cardStyle: { backgroundColor: '#FFFFFF' },
         }}
@@ -143,14 +161,14 @@ function AppStack() {
         width: width * 0.8,
       }}
       drawerContentOptions={{
-        activeTintcolor: nowTheme.COLORS.WHITE,
+        activeTintColor: nowTheme.COLORS.WHITE,
         inactiveTintColor: nowTheme.COLORS.WHITE,
         activeBackgroundColor: 'transparent',
         itemStyle: {
           width: width * 0.75,
           backgroundColor: 'transparent',
           paddingVertical: 16,
-          paddingHorizonal: 12,
+          paddingHorizontal: 12,
           justifyContent: 'center',
           alignContent: 'center',
           alignItems: 'center',
@@ -172,8 +190,8 @@ function AppStack() {
         }}
       />
       <Drawer.Screen
-        name="OrderScreen"
-        component={OrderStack}
+        name="Order Status"
+        component={OrderStatusStack}
         options={{
           headerShown: false,
         }}
@@ -199,6 +217,13 @@ function AppStack() {
           headerShown: false,
         }}
       />
+      <Drawer.Screen
+        name="OrderScreen"
+        component={OrderStack}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -207,14 +232,13 @@ export default function OnboardingStack() {
   return (
     <Stack.Navigator
       screenOptions={{
-        mode: 'card',
         headerShown: false,
       }}
     >
       <Stack.Screen
         name="LoginScreen"
         component={LoginScreen}
-        option={{
+        options={{
           headerTransparent: true,
         }}
       />

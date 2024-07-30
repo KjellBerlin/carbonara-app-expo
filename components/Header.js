@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { withNavigation } from '@react-navigation/compat';
+import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Block, NavBar, Text, theme } from 'galio-framework';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -13,33 +13,37 @@ const { height, width } = Dimensions.get('window');
 const iPhoneX = () =>
   Platform.OS === 'ios' && (height === 812 || width === 812 || height === 896 || width === 896);
 
-const BellButton = ({ isWhite, style, navigation }) => (
-  <TouchableOpacity
-    style={[styles.button, style]}
-    onPress={() => navigation.navigate('About')}
-  >
-    <Icon
-      family="NowExtra"
-      size={18}
-      name="bulb"
-      color={nowTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
-    />
-  </TouchableOpacity>
-);
+const BellButton = ({ isWhite, style }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity
+      style={[styles.button, style]}
+      onPress={() => navigation.navigate('About')}
+    >
+      <Icon
+        family="NowExtra"
+        size={18}
+        name="bulb"
+        color={nowTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
+      />
+    </TouchableOpacity>
+  );
+};
 
 const Header = (props) => {
   const { serviceAvailability, loading, error, handleAddressSelect } = useServiceAvailability();
   const { state } = useContext(GlobalContext);
   const { firstName, googlePlacesAPIKey } = state;
+  const navigation = useNavigation();
 
   const handleLeftPress = () => {
-    const { back, navigation } = props;
+    const { back } = props;
     return back ? navigation.goBack() : navigation.openDrawer();
   };
 
   const renderRight = () => {
-    const { navigation } = props;
-    return [<BellButton key="about" navigation={navigation}/>];
+    return [<BellButton key="about" />];
   };
 
   const googlePlacesInput = () => {
@@ -156,7 +160,6 @@ const Header = (props) => {
     bgColor,
     iconColor,
     titleColor,
-    navigation,
     ...otherProps
   } = props;
 
@@ -267,4 +270,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(Header);
+export default Header;

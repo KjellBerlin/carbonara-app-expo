@@ -7,7 +7,7 @@ import React from 'react';
 function CustomDrawerContent({ navigation, state }) {
   // Definition of screens in sidebar
   // TODO: Remove Components screen
-  const screens = ['Home', 'Components', 'Account'];
+  const screens = ['Home', 'Order Status', 'Components', 'Account'];
   return (
     <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
       <Block style={styles.header}>
