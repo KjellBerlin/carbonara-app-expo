@@ -17,12 +17,14 @@ const LoginScreen = ({ navigation }) => {
   const { updateFirstName, updateFullName, updateAddress, updateAuth0UserId } = useContext(GlobalContext);
   const { data } = useAPIKeys();
 
+
   useEffect(() => {
     if (loggedIn === true) navigation.navigate('App');
   }, [loggedIn, navigation]);
 
   const onLogin = async () => {
     try {
+      // Auth0 library not compatible with expo go app
       const credentials = await authorize({
         audience: 'https://api.carbonara-app.com',
         scope: 'create:orders'
@@ -43,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
         navigation.navigate('App');
       }
     } catch (error) {
-      console.log(error);
+      console.log("Log in failed. Error: "+error);
     }
   };
 
@@ -101,4 +103,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
-
