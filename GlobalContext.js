@@ -1,6 +1,5 @@
 import React, { createContext, useState } from 'react';
 
-// Create a context
 export const GlobalContext = createContext();
 
 // Create a provider component
@@ -14,6 +13,7 @@ export const GlobalProvider = ({ children }) => {
     auth0ClientId: null,
     auth0Domain: null,
     googlePlacesAPIKey: null,
+    paidOrders: null,
   });
 
   const updateProduct = (product) => {
@@ -60,6 +60,13 @@ export const GlobalProvider = ({ children }) => {
     }));
   };
 
+  const updatePaidOrders = (paidOrders) => {
+    setState((prevState) => ({
+      ...prevState,
+      paidOrders,
+    }));
+  };
+
   return (
     <GlobalContext.Provider value={{
       state,
@@ -69,6 +76,7 @@ export const GlobalProvider = ({ children }) => {
       updateFullName,
       updateAuth0UserId,
       updateAPIKeys,
+      updatePaidOrders,
     }}>
       {children}
     </GlobalContext.Provider>

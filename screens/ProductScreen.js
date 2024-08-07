@@ -1,19 +1,25 @@
-import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { StyleSheet, Dimensions, ScrollView, RefreshControl } from 'react-native';
 import { Block, Text } from 'galio-framework';
 import { nowTheme } from '../constants';
-import Loading from '../components/Loading';
 import ProductCard from '../components/ProductCard';
 import useProduct from '../hooks/useProduct';
 
 const { width } = Dimensions.get('screen');
 
 const ProductScreen = () => {
-  const { loading, data } = useProduct();
+  const { loading, data, refetch } = useProduct();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  }, [refetch]);
 
   const renderContent = () => {
     if (loading) {
-      return <Loading />;
+      return <Text style={styles.loadingText}>Loading...</Text>;
     }
     if (!data) {
       return (
@@ -40,6 +46,9 @@ const ProductScreen = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         <Block flex style={styles.group}>
           {renderContent()}
@@ -65,6 +74,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'next-sphere-black',
     fontSize: 18,
+  },
+  loadingText: {
+    fontFamily: 'next-sphere-black',
+    color: nowTheme.COLORS.DEFAULT,
+    textAlign: 'center',
+    fontSize: 12,
+    marginTop: 25,
   },
 });
 

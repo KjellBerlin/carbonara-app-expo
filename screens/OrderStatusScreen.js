@@ -1,24 +1,62 @@
-import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import { StyleSheet, Dimensions, ScrollView, Text, RefreshControl } from 'react-native';
+import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { useNavigation } from '@react-navigation/native';
+import OrderStatusCard from '../components/OrderStatusCard';
+import usePaidOrders from '../hooks/usePaidOrders';
+import { useEffect, useState } from 'react';
 
 const { width } = Dimensions.get('screen');
 
 const OrderStatusScreen = () => {
-  const navigation = useNavigation();
+  const { loading, data, refetch } = usePaidOrders();
+  const [refreshing, setRefreshing] = useState(false);
 
-  const renderContent = () => {
+  useEffect(() => {
+    // Initial fetch on mount
+    refetch();
+
+    const interval = setInterval(() => {
+      refetch();
+    }, 30000); // Refetch every 30 seconds
+
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, [refetch]);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
+
+  const renderCards = () => {
+    if (loading) {
+      return <Text style={styles.noOrdersText}>Loading...</Text>;
+    }
+
+    if (data && data.paidOrders && data.paidOrders.length > 0) {
+      // Sort the orders by createdAt in descending order
+      const sortedOrders = [...data.paidOrders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      return sortedOrders.map((order, index) => {
+        const product = order.productDtos[0]; // Always display first product of this order
+        return (
+          <OrderStatusCard
+            key={index}
+            product={product}
+            orderStatus={order.orderStatus}  // Pass the order status
+            deliveryAddress={order.deliveryAddress}  // Pass the delivery address
+            createdAt={order.createdAt} // Pass the createdAt
+            full
+            titleStyle={styles.productTitle}
+            imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
+          />
+        );
+      });
+    }
+
     return (
-      <Block flex space="between" style={styles.cardDescription}>
-        <Block flex center>
-          <Block flex center style={styles.titleContainer}>
-            <Text style={styles.title} color={nowTheme.COLORS.HEADER}>
-              Order Statuses
-            </Text>
-          </Block>
-        </Block>
+      <Block>
+        <Text style={styles.noOrdersText}>No orders yet.</Text>
       </Block>
     );
   };
@@ -28,10 +66,11 @@ const OrderStatusScreen = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
-        <Block flex style={styles.group}>
-          {renderContent()}
-        </Block>
+        {renderCards()}
       </ScrollView>
     </Block>
   );
@@ -45,20 +84,29 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     width,
   },
-  group: {
-    flex: 1,
-  },
-  cardDescription: {
-    padding: theme.SIZES.BASE / 2,
-  },
-  titleContainer: {
-    marginTop: theme.SIZES.BASE * 2, // Increased margin from the top
-  },
-  title: {
+  productTitle: {
+    color: nowTheme.COLORS.PRIMARY,
+    textAlign: 'center',
     fontFamily: 'next-sphere-black',
-    marginBottom: theme.SIZES.BASE / 2,
-    fontSize: 24,
+    fontSize: 18,
+  },
+  noOrdersText: {
+    fontFamily: 'next-sphere-black',
+    color: nowTheme.COLORS.DEFAULT,
+    textAlign: 'center',
+    fontSize: 12,
+    marginTop: 25,
+  },
+  button: {
+    marginTop: 60,
+    width: width - theme.SIZES.BASE * 2,
+    marginLeft: 16,
+  },
+  buttonText: {
+    fontFamily: 'next-sphere-black',
+    fontSize: 12,
   },
 });
 
 export default OrderStatusScreen;
+

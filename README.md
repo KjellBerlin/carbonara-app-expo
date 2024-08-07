@@ -58,9 +58,9 @@ Let us know your thoughts below. And good luck with development!
 
 ## Demo
 
-| ProductScreen Screen | Profile Screen | Elements Screen | Register Screen |
+| ProductScreen Screen | Profile Screen | Elements Screen | Account Screen |
 | --- | --- | --- | --- |
-| [![ProductScreen Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/home-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Profile Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/profile-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Elements Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/elements-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Register Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/register-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) |
+| [![ProductScreen Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/home-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Profile Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/profile-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Elements Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/elements-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) | [![Account Screen](https://raw.githubusercontent.com/creativetimofficial/public-assets/master/now-ui-react-native/register-screen.png)](https://demos.creative-tim.com/now-ui-react-native/) |
 
 - [Start page](https://demos.creative-tim.com/now-ui-react-native)
 - [How to install our free demo](https://demos.creative-tim.com/now-ui-react-native/docs/#/install)
@@ -131,7 +131,7 @@ now-ui-react-native/
     ├── LoginScreen.js
     ├── Pro.js
     ├── Profile.js
-    ├── Register.js
+    ├── Account.js
     └── Settings.js
 ```
 

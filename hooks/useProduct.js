@@ -16,7 +16,7 @@ const PRODUCT_QUERY = gql`
 `;
 
 const useProduct = () => {
-  const { loading, data } = useQuery(PRODUCT_QUERY, { fetchPolicy: 'cache-and-network' });
+  const { loading, data, refetch } = useQuery(PRODUCT_QUERY, { fetchPolicy: 'cache-and-network' });
   const { updateProduct } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const useProduct = () => {
     }
   }, [data]);
 
-  return { loading, data };
+  return { loading, data, refetch };
 };
 
 export default useProduct;

@@ -7,7 +7,7 @@ import CustomDrawerContent from './Menu';
 import ProductScreen from '../screens/ProductScreen';
 import LoginScreen from '../screens/LoginScreen';
 import React from 'react';
-import Register from '../screens/Register';
+import Account from '../screens/Account';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import OrderScreen from '../screens/OrderScreen';
@@ -95,12 +95,12 @@ function AccountStack() {
     >
       <Stack.Screen
         name="Account"
-        component={Register}
+        component={Account}
         options={{
           header: ({ navigation, scene }) => (
             <Header transparent title="Account" navigation={navigation} scene={scene} />
           ),
-          headerTransparent: true,
+          cardStyle: { backgroundColor: '#FFFFFF' },
         }}
       />
     </Stack.Navigator>
