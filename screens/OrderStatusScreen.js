@@ -1,26 +1,40 @@
-import React from 'react';
-import { StyleSheet, Dimensions, ScrollView } from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
+import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { useNavigation } from '@react-navigation/native';
+import OrderCard from '../components/OrderCard';
+import { GlobalContext } from '../GlobalContext';
+import usePaidOrders from '../hooks/usePaidOrders';
 
 const { width } = Dimensions.get('screen');
 
 const OrderStatusScreen = () => {
-  const navigation = useNavigation();
+  const { loading, data } = usePaidOrders();
 
-  const renderContent = () => {
-    return (
-      <Block flex space="between" style={styles.cardDescription}>
-        <Block flex center>
-          <Block flex center style={styles.titleContainer}>
-            <Text style={styles.title} color={nowTheme.COLORS.HEADER}>
-              Order Statuses
-            </Text>
-          </Block>
-        </Block>
-      </Block>
-    );
+  const renderCards = () => {
+    if (loading) {
+      return <Block><Text>Loading...</Text></Block>;
+    }
+
+    const paidOrders = data?.paidOrders;
+    console.log('Paid orders:', paidOrders)
+
+    if (paidOrders && paidOrders.length > 0) {
+      return paidOrders.map((order, index) => {
+        const product = order.productDtos[0]; // Always display first product of this order
+        return (
+          <OrderCard
+            key={index}
+            product={product}
+            full
+            titleStyle={styles.productTitle}
+            imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
+          />
+        );
+      });
+    }
+
+    return <Block><Text>No orders found.</Text></Block>;
   };
 
   return (
@@ -29,9 +43,7 @@ const OrderStatusScreen = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContainer}
       >
-        <Block flex style={styles.group}>
-          {renderContent()}
-        </Block>
+        {renderCards()}
       </ScrollView>
     </Block>
   );
@@ -45,19 +57,20 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     width,
   },
-  group: {
-    flex: 1,
-  },
-  cardDescription: {
-    padding: theme.SIZES.BASE / 2,
-  },
-  titleContainer: {
-    marginTop: theme.SIZES.BASE * 2, // Increased margin from the top
-  },
-  title: {
+  productTitle: {
+    color: nowTheme.COLORS.PRIMARY,
+    textAlign: 'center',
     fontFamily: 'next-sphere-black',
-    marginBottom: theme.SIZES.BASE / 2,
-    fontSize: 24,
+    fontSize: 18,
+  },
+  button: {
+    marginTop: 60,
+    width: width - theme.SIZES.BASE * 2,
+    marginLeft: 16,
+  },
+  buttonText: {
+    fontFamily: 'next-sphere-black',
+    fontSize: 12,
   },
 });
 
