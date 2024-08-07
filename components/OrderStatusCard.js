@@ -3,23 +3,24 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import { ProgressBar } from 'react-native-paper';  // Add the ProgressBar component
+import { ProgressBar } from 'react-native-paper';
 
 const { width } = Dimensions.get('screen');
 
-// Function to determine progress based on order status
 const getProgress = (status) => {
   switch (status) {
     case 'PROCESSING_ORDER':
-      return 0.25;
+      return { progress: 0.25, color: nowTheme.COLORS.PRIMARY };
     case 'FINDING_AVAILABLE_RIDER':
-      return 0.5;
+      return { progress: 0.5, color: nowTheme.COLORS.PRIMARY };
     case 'DELIVERY_IN_PROGRESS':
-      return 0.75;
+      return { progress: 0.75, color: nowTheme.COLORS.PRIMARY };
     case 'DELIVERED':
-      return 1.0;
+      return { progress: 1.0, color: nowTheme.COLORS.PRIMARY };
+    case 'CANCELLED':
+      return { progress: 1.0, color: nowTheme.COLORS.DEFAULT };
     default:
-      return 0.0;
+      return { progress: 0.0, color: nowTheme.COLORS.DEFAULT };
   }
 };
 
@@ -30,6 +31,8 @@ const OrderStatusCard = ({ product, orderStatus, deliveryAddress, horizontal, st
     horizontal ? styles.horizontalStyles : styles.verticalStyles,
     styles.shadow,
   ];
+
+  const { progress, color } = getProgress(orderStatus);
 
   return (
     <Block card flex style={cardContainer}>
@@ -52,7 +55,7 @@ const OrderStatusCard = ({ product, orderStatus, deliveryAddress, horizontal, st
         </Block>
       </Block>
       <Block flex style={styles.progressBarContainer}>
-        <ProgressBar progress={getProgress(orderStatus)} color={nowTheme.COLORS.PRIMARY} style={styles.progressBar} />
+        <ProgressBar progress={progress} color={color} style={styles.progressBar} />
         <Text style={styles.orderStatus}>{orderStatus.replace('_', ' ')}</Text>
       </Block>
     </Block>
@@ -62,7 +65,6 @@ const OrderStatusCard = ({ product, orderStatus, deliveryAddress, horizontal, st
 OrderStatusCard.propTypes = {
   product: PropTypes.shape({
     productName: PropTypes.string.isRequired,
-    shortProductDescription: PropTypes.string.isRequired,
     productPrice: PropTypes.number.isRequired,
     productPictureUrl: PropTypes.string.isRequired,
   }).isRequired,
@@ -149,4 +151,3 @@ const styles = StyleSheet.create({
 });
 
 export default OrderStatusCard;
-

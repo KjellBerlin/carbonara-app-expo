@@ -3,15 +3,24 @@ import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
 import OrderStatusCard from '../components/OrderStatusCard';
 import usePaidOrders from '../hooks/usePaidOrders';
+import { useEffect } from 'react';
 
 const { width } = Dimensions.get('screen');
 
 const OrderStatusScreen = () => {
-  const { loading, data } = usePaidOrders();
+  const { loading, data, refetch } = usePaidOrders();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 30000); // Refetch every 30 seconds
+
+    return () => clearInterval(interval); // Clear interval on component unmount
+  }, [refetch]);
 
   const renderCards = () => {
     if (loading) {
-      return <Block><Text>Loading...</Text></Block>;
+      return <Text style={styles.noOrdersText}>Loading</Text>
     }
 
     if (data.paidOrders && data.paidOrders.length > 0) {

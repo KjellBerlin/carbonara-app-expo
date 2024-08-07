@@ -26,7 +26,7 @@ const usePaidOrders = () => {
   const { state, updatePaidOrders } = useContext(GlobalContext);
   const { auth0UserId } = state;
 
-  const { loading, data } = useQuery(PAID_ORDERS_QUERY, {
+  const { loading, data, refetch } = useQuery(PAID_ORDERS_QUERY, {
     variables: { userId: auth0UserId },
     fetchPolicy: 'no-cache',
   });
@@ -37,7 +37,8 @@ const usePaidOrders = () => {
     }
   }, [data]);
 
-  return { loading, data };
+  return { loading, data, refetch };
 };
 
 export default usePaidOrders;
+
