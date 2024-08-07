@@ -11,7 +11,6 @@ const PAID_ORDERS_QUERY = gql`
                 productName
                 productPictureUrl
                 productPrice
-                shortProductDescription
             }
             deliveryAddress {
                 street

@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
 import { StyleSheet, Dimensions, ScrollView, Text } from 'react-native';
 import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
-import OrderCard from '../components/OrderCard';
-import { GlobalContext } from '../GlobalContext';
+import OrderStatusCard from '../components/OrderStatusCard';
 import usePaidOrders from '../hooks/usePaidOrders';
 
 const { width } = Dimensions.get('screen');
@@ -16,16 +14,15 @@ const OrderStatusScreen = () => {
       return <Block><Text>Loading...</Text></Block>;
     }
 
-    const paidOrders = data?.paidOrders;
-    console.log('Paid orders:', paidOrders)
-
-    if (paidOrders && paidOrders.length > 0) {
-      return paidOrders.map((order, index) => {
+    if (data.paidOrders && data.paidOrders.length > 0) {
+      return data.paidOrders.map((order, index) => {
         const product = order.productDtos[0]; // Always display first product of this order
         return (
-          <OrderCard
+          <OrderStatusCard
             key={index}
             product={product}
+            orderStatus={order.orderStatus}  // Pass the order status
+            deliveryAddress={order.deliveryAddress}  // Pass the delivery address
             full
             titleStyle={styles.productTitle}
             imageStyle={{ height: 300, width: '100%', resizeMode: 'cover' }}
@@ -34,7 +31,11 @@ const OrderStatusScreen = () => {
       });
     }
 
-    return <Block><Text>No orders found.</Text></Block>;
+    return (
+      <Block>
+        <Text style={styles.noOrdersText}>No orders yet.</Text>
+      </Block>
+    );
   };
 
   return (
@@ -62,6 +63,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'next-sphere-black',
     fontSize: 18,
+  },
+  noOrdersText: {
+    fontFamily: 'next-sphere-black',
+    color: nowTheme.COLORS.DEFAULT,
+    textAlign: 'center',
+    fontSize: 12,
+    marginTop: 25,
   },
   button: {
     marginTop: 60,
