@@ -24,7 +24,7 @@ const getProgress = (status) => {
   }
 };
 
-const OrderStatusCard = ({ product, orderStatus, deliveryAddress, horizontal, style }) => {
+const OrderStatusCard = ({ product, orderStatus, deliveryAddress, createdAt, horizontal, style }) => {
   const cardContainer = [styles.card, styles.shadow, style];
   const imgContainer = [
     styles.imageContainer,
@@ -33,6 +33,14 @@ const OrderStatusCard = ({ product, orderStatus, deliveryAddress, horizontal, st
   ];
 
   const { progress, color } = getProgress(orderStatus);
+
+  const formattedDate = new Date(createdAt).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 
   return (
     <Block card flex style={cardContainer}>
@@ -46,6 +54,9 @@ const OrderStatusCard = ({ product, orderStatus, deliveryAddress, horizontal, st
               {deliveryAddress.street} {deliveryAddress.streetNumber}, {deliveryAddress.postCode} {deliveryAddress.city}
             </Text>
           </Block>
+          <Text style={styles.createdAt} size={14} color={nowTheme.COLORS.DEFAULT}>
+            {formattedDate}
+          </Text>
           <Text style={styles.productPrice} size={18} color={nowTheme.COLORS.PRIMARY}>
             {product.productPrice / 100} €
           </Text>
@@ -75,6 +86,7 @@ OrderStatusCard.propTypes = {
     postCode: PropTypes.string.isRequired,
     city: PropTypes.string.isRequired,
   }).isRequired,
+  createdAt: PropTypes.string.isRequired,
   horizontal: PropTypes.bool,
   style: PropTypes.object,
 };
@@ -96,10 +108,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: theme.SIZES.BASE / 2,
   },
-  shortDescription: {
+  createdAt: {
     fontFamily: 'montserrat-regular',
     textAlign: 'left',
     lineHeight: 14,
+    marginTop: 5,
   },
   deliveryAddress: {
     fontFamily: 'montserrat-regular',
@@ -110,7 +123,7 @@ const styles = StyleSheet.create({
   productPrice: {
     fontFamily: 'montserrat-bold',
     marginBottom: theme.SIZES.BASE,
-    marginTop: theme.SIZES.BASE / 4,
+    marginTop: theme.SIZES.BASE / 3,
   },
   imageContainer: {
     borderRadius: 3,
@@ -137,7 +150,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 7
+    marginBottom: 7,
   },
   orderStatus: {
     fontFamily: 'next-sphere-thin',

@@ -7,6 +7,7 @@ const PAID_ORDERS_QUERY = gql`
         paidOrders(userId: $userId) {
             orderId
             orderStatus
+            createdAt
             productDtos {
                 productName
                 productPictureUrl
