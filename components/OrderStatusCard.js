@@ -9,6 +9,8 @@ const { width } = Dimensions.get('screen');
 
 const getProgress = (status) => {
   switch (status) {
+    case 'NONE':
+      return { progress: 0.0, color: nowTheme.COLORS.PRIMARY };
     case 'PROCESSING_ORDER':
       return { progress: 0.25, color: nowTheme.COLORS.PRIMARY };
     case 'FINDING_AVAILABLE_RIDER':
