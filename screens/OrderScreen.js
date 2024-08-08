@@ -18,8 +18,11 @@ const OrderScreen = () => {
   const { data, loading, createOrder } = useCreateOrder();
 
   const handlePress = async () => {
+    if (loading) {
+      return;
+    }
     try {
-      await InAppBrowser.warmup()
+      await InAppBrowser.warmup();
       await createOrder();
       if (!loading && data) {
         const { orderId, paymentRedirectionLink } = data.createOrder;

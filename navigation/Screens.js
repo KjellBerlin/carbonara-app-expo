@@ -7,7 +7,7 @@ import CustomDrawerContent from './Menu';
 import ProductScreen from '../screens/ProductScreen';
 import LoginScreen from '../screens/LoginScreen';
 import React from 'react';
-import Account from '../screens/Account';
+import AccountScreen from '../screens/AccountScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createStackNavigator } from '@react-navigation/stack';
 import OrderScreen from '../screens/OrderScreen';
@@ -63,6 +63,28 @@ function OrderStack() {
   );
 }
 
+function AccountStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="AccountScreen"
+      screenOptions={{
+        headerShown: true,
+      }}
+    >
+      <Stack.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{
+          header: ({ navigation, scene }) => (
+            <Header transparent title="Account" navigation={navigation} scene={scene} />
+          ),
+          cardStyle: { backgroundColor: '#FFFFFF' },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function ComponentsStack() {
   return (
     <Stack.Navigator
@@ -79,28 +101,6 @@ function ComponentsStack() {
             <Header title="Components" navigation={navigation} scene={scene} />
           ),
           backgroundColor: '#FFFFFF',
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function AccountStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="AccountScreen"
-      screenOptions={{
-        headerShown: true,
-      }}
-    >
-      <Stack.Screen
-        name="Account"
-        component={Account}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header transparent title="Account" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: '#FFFFFF' },
         }}
       />
     </Stack.Navigator>
@@ -197,15 +197,15 @@ function AppStack() {
         }}
       />
       <Drawer.Screen
-        name="Components"
-        component={ComponentsStack}
+        name="Account"
+        component={AccountStack}
         options={{
           headerShown: false,
         }}
       />
       <Drawer.Screen
-        name="Account"
-        component={AccountStack}
+        name="Components"
+        component={ComponentsStack}
         options={{
           headerShown: false,
         }}

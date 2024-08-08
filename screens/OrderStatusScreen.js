@@ -30,7 +30,7 @@ const OrderStatusScreen = () => {
 
   const renderCards = () => {
     if (loading) {
-      return <Text style={styles.noOrdersText}>Loading...</Text>;
+      return <Text style={styles.noOrdersText}>Loading</Text>;
     }
 
     if (data && data.paidOrders && data.paidOrders.length > 0) {
@@ -109,4 +109,3 @@ const styles = StyleSheet.create({
 });
 
 export default OrderStatusScreen;
-
