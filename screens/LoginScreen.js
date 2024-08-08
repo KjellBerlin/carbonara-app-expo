@@ -38,11 +38,13 @@ const LoginScreen = ({ navigation }) => {
         const auth0 = new Auth0({ domain: data.apiKeys.auth0Domain, clientId: data.apiKeys.auth0Domain });
         const userInfo = await auth0.auth.userInfo({ token: credentials.accessToken });
 
-        updateFirstName(userInfo.nickname)
+        console.log(userInfo)
+
+        updateFirstName(userInfo.givenName)
         updateFullName(userInfo.name)
         updateAuth0UserId(userInfo.sub)
         updateEmail(userInfo.email)
-        updatePhoneNumber(userInfo.phoneNumber)
+        updatePhoneNumber(userInfo.nickname)
         updateAddress(null);
         navigation.navigate('App');
       }
