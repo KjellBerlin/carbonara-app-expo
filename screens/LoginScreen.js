@@ -14,7 +14,7 @@ const { width, height } = Dimensions.get('screen');
 const LoginScreen = ({ navigation }) => {
   const { authorize, user } = useAuth0();
   const loggedIn = user !== undefined && user !== null;
-  const { updateFirstName, updateFullName, updateAddress, updateAuth0UserId } = useContext(GlobalContext);
+  const { updateFirstName, updateFullName, updateAddress, updateAuth0UserId, updateEmail, updatePhoneNumber } = useContext(GlobalContext);
   const { data } = useAPIKeys();
 
 
@@ -41,6 +41,8 @@ const LoginScreen = ({ navigation }) => {
         updateFirstName(userInfo.nickname)
         updateFullName(userInfo.name)
         updateAuth0UserId(userInfo.sub)
+        updateEmail(userInfo.email)
+        updatePhoneNumber(userInfo.phoneNumber)
         updateAddress(null);
         navigation.navigate('App');
       }

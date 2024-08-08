@@ -14,6 +14,8 @@ export const GlobalProvider = ({ children }) => {
     auth0Domain: null,
     googlePlacesAPIKey: null,
     paidOrders: null,
+    phoneNumber: null,
+    email: null,
   });
 
   const updateProduct = (product) => {
@@ -67,6 +69,20 @@ export const GlobalProvider = ({ children }) => {
     }));
   };
 
+  const updatePhoneNumber = (phoneNumber) => {
+    setState((prevState) => ({
+      ...prevState,
+      phoneNumber,
+    }));
+  };
+
+  const updateEmail = (email) => {
+    setState((prevState) => ({
+      ...prevState,
+      email,
+    }));
+  };
+
   return (
     <GlobalContext.Provider value={{
       state,
@@ -77,8 +93,11 @@ export const GlobalProvider = ({ children }) => {
       updateAuth0UserId,
       updateAPIKeys,
       updatePaidOrders,
+      updatePhoneNumber,
+      updateEmail,
     }}>
       {children}
     </GlobalContext.Provider>
   );
 };
+
