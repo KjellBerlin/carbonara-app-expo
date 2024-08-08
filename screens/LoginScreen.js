@@ -38,8 +38,6 @@ const LoginScreen = ({ navigation }) => {
         const auth0 = new Auth0({ domain: data.apiKeys.auth0Domain, clientId: data.apiKeys.auth0Domain });
         const userInfo = await auth0.auth.userInfo({ token: credentials.accessToken });
 
-        console.log(userInfo)
-
         updateFirstName(userInfo.givenName)
         updateFullName(userInfo.name)
         updateAuth0UserId(userInfo.sub)
