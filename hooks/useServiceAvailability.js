@@ -25,7 +25,7 @@ const useServiceAvailability = () => {
 
   const [fetchServiceAvailability, { loading, error }] = useLazyQuery(SERVICE_AVAILABILITY_QUERY, {
     variables: { googlePlaceId },
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "no-cache",
     onCompleted: (data) => {
       setServiceAvailability(data.serviceAvailability);
 

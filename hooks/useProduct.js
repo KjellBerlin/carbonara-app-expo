@@ -16,7 +16,7 @@ const PRODUCT_QUERY = gql`
 `;
 
 const useProduct = () => {
-  const { loading, data, refetch } = useQuery(PRODUCT_QUERY, { fetchPolicy: 'cache-and-network' });
+  const { loading, data, refetch } = useQuery(PRODUCT_QUERY, { fetchPolicy: 'no-cache' });
   const { updateProduct } = useContext(GlobalContext);
 
   useEffect(() => {

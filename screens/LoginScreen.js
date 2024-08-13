@@ -45,6 +45,8 @@ const LoginScreen = ({ navigation }) => {
         updatePhoneNumber(userInfo.nickname)
         updateAddress(null);
         navigation.navigate('App');
+      } else {
+        console.log("API keys not available")
       }
     } catch (error) {
       console.log("Log in failed. Error: "+error);
