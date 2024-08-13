@@ -13,7 +13,7 @@ const API_KEYS_QUERY = gql`
 `;
 
 const useAPIKeys = () => {
-  const { loading, data } = useQuery(API_KEYS_QUERY, { fetchPolicy: 'cache-and-network' });
+  const { loading, data } = useQuery(API_KEYS_QUERY, { fetchPolicy: 'no-cache' });
   const { updateAPIKeys } = useContext(GlobalContext);
 
   useEffect(() => {
