@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, Dimensions, ScrollView, Linking } from 'react-native';
 import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
@@ -7,28 +7,39 @@ import AddressCard from '../components/AddressCard';
 import { GlobalContext } from '../GlobalContext';
 import { Button } from '../components';
 import useCreateOrder from '../hooks/useCreateOrder';
-import InAppBrowser from 'react-native-inappbrowser-reborn';
+import * as WebBrowser from 'expo-web-browser';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('screen');
 
 const OrderScreen = () => {
+  const navigation = useNavigation();
   const { state } = useContext(GlobalContext);
   const { fullName, product, address } = state;
   const [additionalDetailsFocus, setAdditionalDetailsFocus] = useState(false);
   const { data, loading, createOrder } = useCreateOrder();
+
+  useEffect(() => {
+    const handleUrlChange = ({ url }) => {}; // empty function for now
+
+    const subscription = Linking.addEventListener('url', handleUrlChange);
+
+    return () => {
+      subscription.remove();  // Clean up the event listener when the component unmounts
+    };
+  }, []);
 
   const handlePress = async () => {
     if (loading) {
       return;
     }
     try {
-      await InAppBrowser.warmup();
       await createOrder();
       if (!loading && data) {
         const { orderId, paymentRedirectionLink } = data.createOrder;
         console.log(`Order: ${orderId} Redirect link: ${paymentRedirectionLink}`);
         if (paymentRedirectionLink) {
-          await openInAppBrowser(paymentRedirectionLink);
+          await openBrowser(paymentRedirectionLink);
         }
       }
     } catch (error) {
@@ -36,28 +47,14 @@ const OrderScreen = () => {
     }
   };
 
-  const openInAppBrowser = async (url) => {
+  const openBrowser = async (paymentRedirectionLink) => {
     try {
-      if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.open(url, {
-          dismissButtonStyle: 'cancel',
-          animated: true,
-          modalPresentationStyle: 'pageSheet',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          toolbarColor: '#6200EE',
-          secondaryToolbarColor: 'black',
-          forceCloseOnRedirection: true,
-          animations: {
-            startEnter: 'slide_in_right',
-            startExit: 'slide_out_left',
-            endEnter: 'slide_in_left',
-            endExit: 'slide_out_right',
-          },
-        });
-        console.log(result);
-      } else {
-        await Linking.openURL(url);
+      const result = await WebBrowser.openAuthSessionAsync(paymentRedirectionLink);
+
+      if (result.type === 'success' && result.url) {
+        // Manually handle the URL change here if needed
+        console.log('Final URL:', result.url, result.type);
+        navigation.navigate('Order Status');
       }
     } catch (error) {
       console.error('Failed to open URL:', error.message);
@@ -128,3 +125,4 @@ const styles = StyleSheet.create({
 });
 
 export default OrderScreen;
+
