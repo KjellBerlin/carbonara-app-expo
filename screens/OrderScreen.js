@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { StyleSheet, Dimensions, ScrollView, Linking } from 'react-native';
-import { Block, theme } from 'galio-framework';
+import { Block, Text, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
 import OrderCard from '../components/OrderCard';
 import AddressCard from '../components/AddressCard';
@@ -20,7 +20,9 @@ const OrderScreen = () => {
   const { data, loading, createOrder } = useCreateOrder();
 
   useEffect(() => {
-    const handleUrlChange = ({ url }) => {}; // empty function for now
+
+    // no logic her for now. The payment success will be shown on the order status screen
+    const handleUrlChange = () => {};
 
     const subscription = Linking.addEventListener('url', handleUrlChange);
 
@@ -83,6 +85,9 @@ const OrderScreen = () => {
         >
           Order with obligation to pay
         </Button>
+        <Text style={styles.paymentInformation}>
+          After clicking this button you will be redirected to our payment provider mollie.
+        </Text>
       </Block>
     </Block>
   );
@@ -122,7 +127,13 @@ const styles = StyleSheet.create({
     fontFamily: 'next-sphere-black',
     fontSize: 12,
   },
+  paymentInformation: {
+    color: nowTheme.COLORS.DEFAULT,
+    marginLeft: 20,
+    marginRight: 20,
+    fontFamily: 'montserrat-regular',
+    fontSize: 11,
+  },
 });
 
 export default OrderScreen;
-

@@ -1,15 +1,24 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { StyleSheet, Dimensions, ScrollView, RefreshControl } from 'react-native';
 import { Block, Text } from 'galio-framework';
 import { nowTheme } from '../constants';
 import ProductCard from '../components/ProductCard';
 import useProduct from '../hooks/useProduct';
+import { useNavigation } from '@react-navigation/native';
+import { GlobalContext } from '../GlobalContext';
 
 const { width } = Dimensions.get('screen');
 
 const ProductScreen = () => {
   const { loading, data, refetch } = useProduct();
   const [refreshing, setRefreshing] = useState(false);
+  const navigation = useNavigation();
+  const { state } = useContext(GlobalContext);
+  const { firstName } = state;
+  // Navigate back to login screen if user is not logged in
+  if (firstName === null) {
+    navigation.navigate('LoginScreen')
+  }
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
