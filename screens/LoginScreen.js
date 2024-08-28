@@ -47,6 +47,7 @@ const LoginScreen = ({ navigation }) => {
         navigation.navigate('App');
       } else {
         console.log("API keys not available")
+        console.log("API keys: "+data)
       }
     } catch (error) {
       console.log("Log in failed. Error: "+error);
