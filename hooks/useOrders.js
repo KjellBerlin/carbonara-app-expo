@@ -23,7 +23,7 @@ const PAID_ORDERS_QUERY = gql`
     }
 `;
 
-const usePaidOrders = () => {
+const useOrders = () => {
   const { state, updatePaidOrders } = useContext(GlobalContext);
   const { auth0UserId } = state;
 
@@ -41,5 +41,5 @@ const usePaidOrders = () => {
   return { loading, data, refetch };
 };
 
-export default usePaidOrders;
+export default useOrders;
 

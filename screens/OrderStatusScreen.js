@@ -2,13 +2,13 @@ import { StyleSheet, Dimensions, ScrollView, Text, RefreshControl } from 'react-
 import { Block, theme } from 'galio-framework';
 import { nowTheme } from '../constants';
 import OrderStatusCard from '../components/OrderStatusCard';
-import usePaidOrders from '../hooks/usePaidOrders';
+import useOrders from '../hooks/useOrders';
 import { useEffect, useState } from 'react';
 
 const { width } = Dimensions.get('screen');
 
 const OrderStatusScreen = () => {
-  const { loading, data, refetch } = usePaidOrders();
+  const { loading, data, refetch } = useOrders();
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {

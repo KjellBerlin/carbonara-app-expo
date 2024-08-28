@@ -19,6 +19,8 @@ const getProgress = (status) => {
       return { progress: 0.75, color: nowTheme.COLORS.PRIMARY };
     case 'DELIVERED':
       return { progress: 1.0, color: nowTheme.COLORS.PRIMARY };
+    case 'PAYMENT_FAILED':
+      return { progress: 1.0, color: nowTheme.COLORS.DEFAULT };
     case 'CANCELLED':
       return { progress: 1.0, color: nowTheme.COLORS.DEFAULT };
     default:
