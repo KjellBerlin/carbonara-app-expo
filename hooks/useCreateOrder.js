@@ -10,7 +10,8 @@ const CREATE_ORDER_MUTATION = gql`
         $streetNumber: String!,
         $postCode: String!,
         $city: String!,
-        $productId: String!
+        $productId: String!,
+        $googlePlaceId: String!
     ) {
         createOrder(
             createOrderInput: {
@@ -22,6 +23,7 @@ const CREATE_ORDER_MUTATION = gql`
                     streetNumber: $streetNumber
                     postCode: $postCode
                     city: $city
+                    googlePlaceId: $googlePlaceId
                 }
                 productsIds: [$productId]
             }
@@ -45,6 +47,7 @@ const useCreateOrder = () => {
         streetNumber: address.streetNumber,
         postCode: address.postCode,
         city: address.city,
+        googlePlaceId: address.googlePlaceId,
         productId: product.productId
     };
 
