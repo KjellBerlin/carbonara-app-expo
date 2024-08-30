@@ -12,6 +12,7 @@ const SERVICE_AVAILABILITY_QUERY = gql`
                 postCode
                 street
                 streetNumber
+                googlePlaceId
             }
             addressIncomplete
         }
