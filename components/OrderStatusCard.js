@@ -11,9 +11,9 @@ const getProgress = (status) => {
   switch (status) {
     case 'NONE':
       return { progress: 0.0, color: nowTheme.COLORS.PRIMARY };
-    case 'PROCESSING_ORDER':
-      return { progress: 0.25, color: nowTheme.COLORS.PRIMARY };
     case 'FINDING_AVAILABLE_RIDER':
+      return { progress: 0.25, color: nowTheme.COLORS.PRIMARY };
+    case 'RIDER_ASSIGNED':
       return { progress: 0.5, color: nowTheme.COLORS.PRIMARY };
     case 'DELIVERY_IN_PROGRESS':
       return { progress: 0.75, color: nowTheme.COLORS.PRIMARY };
