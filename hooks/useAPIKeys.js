@@ -5,8 +5,6 @@ import { GlobalContext } from '../GlobalContext';
 const API_KEYS_QUERY = gql`
     query GooglePlacesAPIKey {
         apiKeys {
-            auth0ClientId
-            auth0Domain
             googlePlacesAPIKey
         }
     }

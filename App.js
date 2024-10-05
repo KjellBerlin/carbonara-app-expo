@@ -3,6 +3,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { Block, GalioProvider } from 'galio-framework';
 import { NavigationContainer } from '@react-navigation/native';
+import 'react-native-get-random-values';
 
 import Screens from './navigation/Screens';
 import { nowTheme } from './constants';
