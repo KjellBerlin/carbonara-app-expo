@@ -19,3 +19,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Additional Terms for Modifications by Kjell Lilliestolze
+
+The modifications made to the original code by Kjell Lillie-Stolze are not licensed 
+under the MIT License. These modifications are subject to separate licensing terms, 
+and no permission is granted for commercial or non-commercial use, distribution, 
+or modification of these changes without explicit prior approval from Kjell Lillie-Stolze.
