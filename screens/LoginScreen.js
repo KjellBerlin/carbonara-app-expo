@@ -15,8 +15,7 @@ const LoginScreen = ({ navigation }) => {
   const { authorize, user } = useAuth0();
   const loggedIn = user !== undefined && user !== null;
   const { updateFirstName, updateFullName, updateAddress, updateAuth0UserId, updateEmail, updatePhoneNumber } = useContext(GlobalContext);
-  const { data } = useAPIKeys();
-
+  useAPIKeys()
 
   useEffect(() => {
     if (loggedIn === true) navigation.navigate('App');
@@ -30,25 +29,19 @@ const LoginScreen = ({ navigation }) => {
         scope: 'create:orders'
       });
       await SecureStore.setItemAsync('jwt_token', credentials.accessToken);
-      console.log(credentials.accessToken) // TODO: Remove log
       console.log("Log in successful");
 
-      if (data) {
-        // Fetch user details after successful login
-        const auth0 = new Auth0({ domain: data.apiKeys.auth0Domain, clientId: data.apiKeys.auth0Domain });
-        const userInfo = await auth0.auth.userInfo({ token: credentials.accessToken });
+      // Fetch user details after successful login
+      const auth0 = new Auth0({ domain: "dev-yntwqm72gdl58ssy.us.auth0.com", clientId: "df43s61p15MI3pp7UoBPV0tEQ0DA6dIc" });
+      const userInfo = await auth0.auth.userInfo({ token: credentials.accessToken });
 
-        updateFirstName(userInfo.givenName)
-        updateFullName(userInfo.name)
-        updateAuth0UserId(userInfo.sub)
-        updateEmail(userInfo.email)
-        updatePhoneNumber(userInfo.nickname)
-        updateAddress(null);
-        navigation.navigate('App');
-      } else {
-        console.log("API keys not available")
-        console.log("API keys: "+data)
-      }
+      updateFirstName(userInfo.givenName)
+      updateFullName(userInfo.name)
+      updateAuth0UserId(userInfo.sub)
+      updateEmail(userInfo.email)
+      updatePhoneNumber(userInfo.nickname)
+      updateAddress(null);
+      navigation.navigate('App');
     } catch (error) {
       console.log("Log in failed. Error: "+error);
     }

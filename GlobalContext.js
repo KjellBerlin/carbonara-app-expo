@@ -10,8 +10,6 @@ export const GlobalProvider = ({ children }) => {
     firstName: null,
     fullName: null,
     auth0UserId: null,
-    auth0ClientId: null,
-    auth0Domain: null,
     googlePlacesAPIKey: null,
     paidOrders: null,
     phoneNumber: null,
@@ -56,8 +54,6 @@ export const GlobalProvider = ({ children }) => {
   const updateAPIKeys = (apiKeys) => {
     setState((prevState) => ({
       ...prevState,
-      auth0ClientId: apiKeys.auth0ClientId,
-      auth0Domain: apiKeys.auth0Domain,
       googlePlacesAPIKey: apiKeys.googlePlacesAPIKey,
     }));
   };
